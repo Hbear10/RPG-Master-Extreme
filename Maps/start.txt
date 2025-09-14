@@ -1,0 +1,10 @@
+w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick
+w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Brick
+w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Brick
+w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Brick
+l-Grass-room2~8~4,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Brick
+w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Brick
+w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Brick
+w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,e-Enemy,p-Grass,w-Brick
+w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Brick
+w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick

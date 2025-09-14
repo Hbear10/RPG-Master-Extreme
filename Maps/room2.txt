@@ -1,0 +1,10 @@
+w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick
+w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Brick
+w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Brick
+w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Brick
+w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,l-Grass-start~1~4
+w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Brick
+w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Brick
+w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Brick
+w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Brick
+w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick
