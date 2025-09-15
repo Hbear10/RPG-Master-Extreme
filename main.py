@@ -64,6 +64,7 @@ class world_being():
 map = []
 
 def map_load(maptext:str):
+    global tiles
 
     map = []
     file = open("Maps/"+maptext+".txt", "r")
@@ -74,16 +75,18 @@ def map_load(maptext:str):
         for x in i:
             block_info = x.split("-")
             if block_info[0] == "p":
-                block = tile(block_info[1]+".png","path")
+                block = tile(block_info[1],"path")
             elif x[0] == "w":
-                block = tile(block_info[1]+".png","wall")
+                block = tile(block_info[1],"wall")
             elif x[0] == "l":
-                block = tile(block_info[1]+".png","leave",tuple(block_info[2].split("~")))
+                block = tile(block_info[1],"leave",tuple(block_info[2].split("~")))
             elif x[0] == "h":
-                block = tile(block_info[1]+".png","harm")
+                block = tile(block_info[1],"harm")
             elif x[0] == "e":
-                block = tile(block_info[1]+".png","enemy")
+                block = tile(block_info[1],"enemy")
             map[-1].append(block)
+            if block_info[1] not in tiles:
+                tiles[block_info[1]]=pygame.image.load("Assets/"+block_info[1]+".png").convert()
     return map
 
 
@@ -92,7 +95,7 @@ def load_enemy():
     return being(random.choice(types),random.randint(9,11),random.randint(3,5),random.randint(3,4))
 
 
-map = map_load("start")
+
 
 world_player = world_being(64,64)
 player_speed = 4
@@ -124,6 +127,17 @@ little_font = pygame.font.SysFont('Comic Sans MS', 25)
 
 clock = pygame.time.Clock()
 timer = 64
+
+
+
+
+
+#tiles = {"Grass":pygame.image.load("Assets/Grass.png").convert(),"Brick":pygame.image.load("Assets/Brick.png").convert(),"Enemy":pygame.image.load("Assets/Enemy.png").convert(),}
+tiles = {}
+map = map_load("start")
+
+
+
 
 post_transition_stage = "world"
 next_map = "start"
@@ -234,10 +248,10 @@ def draw_world():
             # square = pygame.Rect(64*x,64*y,64,64)
             # pygame.draw.rect(screen,(map[y][x].img),square)
 
-            square_img = pygame.image.load("Assets/"+map[y][x].img).convert()
-            square_rect = square_img.get_rect()
+            #square_img = pygame.image.load("Assets/"+map[y][x].img).convert()
+            square_rect = tiles[map[y][x].img].get_rect()
             square_rect.center = (64*x+32,64*y+32)
-            screen.blit(square_img,square_rect)
+            screen.blit(tiles[map[y][x].img],square_rect)
 
     # player = pygame.Rect(world_player.x,world_player.y,64,64)
     # pygame.draw.rect(screen,("YELLOW"),player)
