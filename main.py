@@ -1,5 +1,6 @@
 import pygame
 import random
+import Spritesheet
 
 print("hello world")
 
@@ -13,6 +14,7 @@ class being():
         self.defence = defence
         self.alive = True
         self.defended = 1 # 1 is not defended, 2 is defended, for when use defend button
+        self.choice = "attack"
 
     def hurt(self, enemy_strength): #attack this being
         global dmg
@@ -53,14 +55,8 @@ class world_being():
         self.moving = False
         self.target_x = x
         self.target_y = y
-
-class enemy_being(being):
-    def __init__(self, name, max_health, strength, defence):
-        super().__init__(name, max_health, strength, defence)
-        self.health = max_health
-        self.alive = True
-        self.defended = 1 # 1 is not defended, 2 is defended, for when use defend button
-        self.choice = "attack"
+        
+        
 
 
 
@@ -109,7 +105,7 @@ def map_load(maptext:str):
 
 def load_enemy():
     types = ["Slime","Mushroom"]
-    return enemy_being(random.choice(types),random.randint(9,11),random.randint(3,5),random.randint(3,4))
+    return being(random.choice(types),random.randint(9,11),random.randint(3,5),random.randint(3,4))
 
 
 
@@ -133,7 +129,6 @@ game_state = "transition"
 battle_selector = 1
 player_turn = True
 dmg = 0
-
 widnow_scale = 1
 
 pygame.init()
@@ -155,6 +150,9 @@ timer = 64
 
 text_box_info = {"title":"","desc":[""],"img":"Random.png"}
 
+slash_sheet = Spritesheet.SpriteSheet("Assets\Slash.png")
+slash = [slash_sheet.image_at((0,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((16,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((32,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((48,0,16,16),colorkey=(0,0,0)),\
+        slash_sheet.image_at((64,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((80,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((96,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((112,0,16,16),colorkey=(0,0,0))]
 
 
 #tiles = {"Grass":pygame.image.load("Assets/Grass.png").convert(),"Brick":pygame.image.load("Assets/Brick.png").convert(),"Enemy":pygame.image.load("Assets/Enemy.png").convert(),}
@@ -226,7 +224,7 @@ def battle_scene():
         #enemy sprite
         enemy_sprite = pygame.image.load("Assets/"+enemy.name+".png").convert()
         enemy_rect = enemy_sprite.get_rect()
-        enemy_rect.center = (320,320)
+        enemy_rect.center = (320,240)
         screen.blit(enemy_sprite,enemy_rect)
     else:
         if timer > 15:
@@ -234,14 +232,17 @@ def battle_scene():
             enemy_sprite = pygame.image.load("Assets/"+enemy.name+".png").convert()
             enemy_rect = enemy_sprite.get_rect()
          #   print(timer)
-            enemy_rect.center = (320,320-(15-(timer-15))*2)
+            enemy_rect.center = (320,240-(15-(timer-15))*2)
             screen.blit(enemy_sprite,enemy_rect)
         else:
             #enemy sprite
             enemy_sprite = pygame.image.load("Assets/"+enemy.name+".png").convert()
             enemy_rect = enemy_sprite.get_rect()
-            enemy_rect.center = (320,320-timer*2)
+            enemy_rect.center = (320,240-timer*2)
             screen.blit(enemy_sprite,enemy_rect)
+        
+    if timer >= 36 and player.choice == "attack":
+        screen.blit(pygame.transform.scale(slash[(60-timer)//4],(128,128)),(260,260))
 
 
 
@@ -259,7 +260,7 @@ def enemy_turn():
     elif choice == 4:
         enemy.choice = "defend"
         enemy.defended = 2
-        text_list.append(text_pop_up("Defending",60,(220*widnow_scale,195*widnow_scale),"defending"))
+        text_list.append(text_pop_up("Defending",60,(200*widnow_scale,110*widnow_scale),"defending"))
 
 
 def game_over():
@@ -393,14 +394,17 @@ while running:
                             #battle_scene()
                             player_turn = False
                             timer = 60
+                            player.choice = "attack"
                         elif battle_selector == 2:
                             player.defended = 2
                             player_turn = False
                             timer = 60
+                            player.choice = "defend"
                         elif battle_selector == 3:
                             text_box("battle","Stats",["hi","bye"],"Slime.png")
                         elif battle_selector == 4:
                             start_transition("world")
+                            player.choice = "run"
                     
 
 
@@ -428,6 +432,7 @@ while running:
 
                 else:
                     start_transition("game_won")
+                    player_turn = True
                     
                     
 
