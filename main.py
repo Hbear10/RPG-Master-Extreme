@@ -222,18 +222,26 @@ def battle_scene():
     pygame.draw.polygon(screen, arrow_colour, ((60+x_incriment,480+y_incriment),(60+x_incriment,520+y_incriment),(80+x_incriment,500+y_incriment)))
     pygame.draw.polygon(screen, arrow_colour, ((300+x_incriment,480+y_incriment),(300+x_incriment,520+y_incriment),(280+x_incriment,500+y_incriment)))
 
-    if player_turn == True or timer <= 30 or enemy.choice == "defend":
+    if player_turn == True or timer >= 30 or enemy.choice == "defend":
         #enemy sprite
         enemy_sprite = pygame.image.load("Assets/"+enemy.name+".png").convert()
         enemy_rect = enemy_sprite.get_rect()
         enemy_rect.center = (320,320)
         screen.blit(enemy_sprite,enemy_rect)
     else:
-        #enemy sprite
-        enemy_sprite = pygame.image.load("Assets/"+enemy.name+".png").convert()
-        enemy_rect = enemy_sprite.get_rect()
-        enemy_rect.center = (320,320+timer-30)
-        screen.blit(enemy_sprite,enemy_rect)
+        if timer > 15:
+            #enemy sprite
+            enemy_sprite = pygame.image.load("Assets/"+enemy.name+".png").convert()
+            enemy_rect = enemy_sprite.get_rect()
+         #   print(timer)
+            enemy_rect.center = (320,320-(15-(timer-15))*2)
+            screen.blit(enemy_sprite,enemy_rect)
+        else:
+            #enemy sprite
+            enemy_sprite = pygame.image.load("Assets/"+enemy.name+".png").convert()
+            enemy_rect = enemy_sprite.get_rect()
+            enemy_rect.center = (320,320-timer*2)
+            screen.blit(enemy_sprite,enemy_rect)
 
 
 
@@ -246,12 +254,12 @@ def enemy_turn():
         #enemy attacks
         
         enemy.choice = "attack"
-        print(timer)
+       # print(timer)
         enemy.defended = 1
     elif choice == 4:
         enemy.choice = "defend"
         enemy.defended = 2
-        text_list.append(text_pop_up("Defending",120,(220*widnow_scale,195*widnow_scale),"defending"))
+        text_list.append(text_pop_up("Defending",60,(220*widnow_scale,195*widnow_scale),"defending"))
 
 
 def game_over():
@@ -339,8 +347,8 @@ def draw_world():
 
     # player = pygame.Rect(world_player.x,world_player.y,64,64)
     # pygame.draw.rect(screen,("YELLOW"),player)
-
-    player_img = pygame.transform.rotate(pygame.transform.scale(pygame.image.load("Assets/Player_temp.png").convert(),(64,64)),player_direction)
+    player_png = ["Player_Down.png","Player_Right.png","Player_Up.png","Player_Left.png"][player_direction//90]
+    player_img = pygame.transform.scale(pygame.image.load("Assets/"+player_png).convert(),(64,64))
     player_rect = player_img.get_rect()
     player_rect.center = ((world_player.x+32)*widnow_scale,(world_player.y+32)*widnow_scale)
     screen.blit(player_img,player_rect)
@@ -384,11 +392,11 @@ while running:
                             #print(text_list)
                             #battle_scene()
                             player_turn = False
-                            timer = 120
+                            timer = 60
                         elif battle_selector == 2:
                             player.defended = 2
                             player_turn = False
-                            timer = 120
+                            timer = 60
                         elif battle_selector == 3:
                             text_box("battle","Stats",["hi","bye"],"Slime.png")
                         elif battle_selector == 4:
@@ -522,19 +530,19 @@ while running:
                     print("Can't go")
             elif pygame.key.get_pressed()[pygame.K_SPACE]:
                 if timer > 30:
-                    if player_direction == 90:
+                    if player_direction == 90:#right
                         if map[world_player.y//64][world_player.x//64+1].extra_info != () and world_player.x != 576:
                             info = map[world_player.y//64][world_player.x//64+1].extra_info
                             text_box(info[0],info[1],info[2],info[3])
-                    elif player_direction == 180:
+                    elif player_direction == 180:#down
                         if map[world_player.y//64-1][world_player.x//64].extra_info != () and world_player.x != 576:
                             info = map[world_player.y//64-1][world_player.x//64].extra_info
                             text_box(info[0],info[1],info[2],info[3])
-                    elif player_direction == 270:
+                    elif player_direction == 270:#left
                         if map[world_player.y//64][world_player.x//64-1].extra_info != () and world_player.x != 576:
                             info = map[world_player.y//64][world_player.x//64-1].extra_info
                             text_box(info[0],info[1],info[2],info[3])
-                    elif player_direction == 0:
+                    elif player_direction == 0:#up
                         if map[world_player.y//64+1][world_player.x//64].extra_info != () and world_player.x != 576:
                             info = map[world_player.y//64+1][world_player.x//64].extra_info
                             text_box(info[0],info[1],info[2],info[3])
