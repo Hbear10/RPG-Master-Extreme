@@ -54,6 +54,15 @@ class world_being():
         self.target_x = x
         self.target_y = y
 
+class enemy_being(being):
+    def __init__(self, name, max_health, strength, defence):
+        super().__init__(name, max_health, strength, defence)
+        self.health = max_health
+        self.alive = True
+        self.defended = 1 # 1 is not defended, 2 is defended, for when use defend button
+        self.choice = "attack"
+
+
 
 # grass_tile = tile("Grass.png","path")
 # path_tile = tile("Grass.png","path")
@@ -100,7 +109,7 @@ def map_load(maptext:str):
 
 def load_enemy():
     types = ["Slime","Mushroom"]
-    return being(random.choice(types),random.randint(9,11),random.randint(3,5),random.randint(3,4))
+    return enemy_being(random.choice(types),random.randint(9,11),random.randint(3,5),random.randint(3,4))
 
 
 
@@ -169,11 +178,7 @@ def battle_scene():
     enemy_health_bar_front = pygame.Rect(80*widnow_scale,80*widnow_scale,480*(enemy.health/enemy.max_health)*widnow_scale,32*widnow_scale)
     pygame.draw.rect(screen,(255,0,0),enemy_health_bar_front)
 
-    #enemy sprite
-    enemy_sprite = pygame.image.load("Assets/"+enemy.name+".png").convert()
-    enemy_rect = enemy_sprite.get_rect()
-    enemy_rect.center = (320,320)
-    screen.blit(enemy_sprite,enemy_rect)
+    
 
     #enemy health info
     enemy_health = little_font.render(str(enemy.health)+" / "+str(enemy.max_health), False, (255, 255, 255))
@@ -209,20 +214,42 @@ def battle_scene():
         arrow_colour = (255,255,0)
     else:
         arrow_colour = (125,125,0)
+
+        #print(timer)
+
     x_incriment = (battle_selector+1)%2*260
     y_incriment = (battle_selector-1)//2*80
     pygame.draw.polygon(screen, arrow_colour, ((60+x_incriment,480+y_incriment),(60+x_incriment,520+y_incriment),(80+x_incriment,500+y_incriment)))
     pygame.draw.polygon(screen, arrow_colour, ((300+x_incriment,480+y_incriment),(300+x_incriment,520+y_incriment),(280+x_incriment,500+y_incriment)))
 
-    
+    if player_turn == True or timer <= 30 or enemy.choice == "defend":
+        #enemy sprite
+        enemy_sprite = pygame.image.load("Assets/"+enemy.name+".png").convert()
+        enemy_rect = enemy_sprite.get_rect()
+        enemy_rect.center = (320,320)
+        screen.blit(enemy_sprite,enemy_rect)
+    else:
+        #enemy sprite
+        enemy_sprite = pygame.image.load("Assets/"+enemy.name+".png").convert()
+        enemy_rect = enemy_sprite.get_rect()
+        enemy_rect.center = (320,320+timer-30)
+        screen.blit(enemy_sprite,enemy_rect)
+
+
+
+
+
+
 def enemy_turn():
     choice = random.randint(1,4)
     if choice <= 3:
         #enemy attacks
-        player.hurt(enemy.strength)
-        text_list.append(text_pop_up(str(dmg),60,(560*widnow_scale,440*widnow_scale),"dmg-indicator"))
+        
+        enemy.choice = "attack"
+        print(timer)
         enemy.defended = 1
     elif choice == 4:
+        enemy.choice = "defend"
         enemy.defended = 2
         text_list.append(text_pop_up("Defending",120,(220*widnow_scale,195*widnow_scale),"defending"))
 
@@ -375,12 +402,16 @@ while running:
                     running = False    
 
             if timer > 0:
-                timer -= 2
+                timer -= 1
                 #print(timer)
             else:
                 player_turn = True
+                if enemy.choice == "attack":
+                    player.hurt(enemy.strength)
+                    text_list.append(text_pop_up(str(dmg),60,(560*widnow_scale,440*widnow_scale),"dmg-indicator"))
 
-            if timer == 60:
+
+            if timer == 30:
                 if enemy.health > 0:
                     enemy_turn()
                     if player.health == 0:
