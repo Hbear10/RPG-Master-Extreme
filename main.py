@@ -78,7 +78,11 @@ def map_load(maptext:str):
             if block_info[0] == "p":
                 block = tile(block_info[1],"path")
             elif x[0] == "w":
-                block = tile(block_info[1],"wall")
+                if len(block_info)>=3:
+                    block = tile(block_info[1],"wall",list(block_info[2].split("~")))
+                    block.extra_info[-2] = block.extra_info[-2].split(".")
+                else:
+                    block = tile(block_info[1],"wall")
             elif x[0] == "l":
                 block = tile(block_info[1],"leave",tuple(block_info[2].split("~")))
             elif x[0] == "h":
@@ -103,6 +107,7 @@ def load_enemy():
 
 world_player = world_being(64,64)
 player_speed = 4
+player_direction = 90
 
 
 text_list = []
@@ -146,8 +151,6 @@ text_box_info = {"title":"","desc":[""],"img":"Random.png"}
 #tiles = {"Grass":pygame.image.load("Assets/Grass.png").convert(),"Brick":pygame.image.load("Assets/Brick.png").convert(),"Enemy":pygame.image.load("Assets/Enemy.png").convert(),}
 tiles = {}
 map = map_load("start")
-
-
 
 
 post_transition_stage = "world"
@@ -236,12 +239,16 @@ def game_won():
     screen.fill((0,0,0))
 
     #game over text
-    text = font(42).render("You beat "+enemy.name+" WELL DONE", False, (255, 255, 255))
-    screen.blit(text, (40,240))
+    text_you_beat = font(42).render("You beat ", False, (255, 255, 255))
+    screen.blit(text_you_beat, (240,120))
+    text_enemy_name = font(42).render(enemy.name, False, (255, 255, 255))
+    screen.blit(text_enemy_name, (320-(len(enemy.name)//2*25),180))
+    text_WELL_DONE = font(42).render(" WELL DONE", False, (255, 255, 255))
+    screen.blit(text_WELL_DONE, (180,240))
 
     if timer > 60:
         text = little_font.render("Press any key to go to world", False, (255, 255, 255))
-        screen.blit(text, (140,320))
+        screen.blit(text, (160,360))
 
 
 def transition(): # black screen slowly passes over
@@ -306,7 +313,7 @@ def draw_world():
     # player = pygame.Rect(world_player.x,world_player.y,64,64)
     # pygame.draw.rect(screen,("YELLOW"),player)
 
-    player_img = pygame.image.load("Assets/Player.png").convert()
+    player_img = pygame.transform.rotate(pygame.transform.scale(pygame.image.load("Assets/Player_temp.png").convert(),(64,64)),player_direction)
     player_rect = player_img.get_rect()
     player_rect.center = ((world_player.x+32)*widnow_scale,(world_player.y+32)*widnow_scale)
     screen.blit(player_img,player_rect)
@@ -436,6 +443,7 @@ while running:
 
             if event.type == pygame.KEYDOWN:
                 game_state = post_transition_stage
+                timer = 0
         
         draw_text_box()
 
@@ -453,30 +461,52 @@ while running:
         if world_player.moving == False:
             #if pygame.key.get_pressed[pygame.KEYUP]:
             if  pygame.key.get_pressed()[pygame.K_UP]:
+                player_direction = 180
                 if map[world_player.y//64-1][world_player.x//64].type != "wall" and world_player.y != 0:
                     world_player.target_y = world_player.y-64
                     world_player.moving = True
+                    
                 else:
                     print("Can't go")
             if  pygame.key.get_pressed()[pygame.K_DOWN]:
+                player_direction = 0
                 if map[world_player.y//64+1][world_player.x//64].type != "wall" and world_player.y != 576:
                     world_player.target_y = world_player.y+64
                     world_player.moving = True
                 else:
                     print("Can't go")
-            if pygame.key.get_pressed()[pygame.K_LEFT]:
+            elif pygame.key.get_pressed()[pygame.K_LEFT]:
+                player_direction = 270
                 if map[world_player.y//64][world_player.x//64-1].type != "wall" and world_player.x != 0:
                     world_player.target_x = world_player.x-64
                     world_player.moving = True
                 else:
                     print("Can't go")
-            if pygame.key.get_pressed()[pygame.K_RIGHT]:
+            elif pygame.key.get_pressed()[pygame.K_RIGHT]:
+                player_direction = 90
                 if map[world_player.y//64][world_player.x//64+1].type != "wall" and world_player.x != 576:
                     world_player.target_x = world_player.x+64
                     world_player.moving = True
                 else:
                     print("Can't go")
-        
+            elif pygame.key.get_pressed()[pygame.K_SPACE]:
+                if timer > 30:
+                    if player_direction == 90:
+                        if map[world_player.y//64][world_player.x//64+1].extra_info != () and world_player.x != 576:
+                            info = map[world_player.y//64][world_player.x//64+1].extra_info
+                            text_box(info[0],info[1],info[2],info[3])
+                    elif player_direction == 180:
+                        if map[world_player.y//64-1][world_player.x//64].extra_info != () and world_player.x != 576:
+                            info = map[world_player.y//64-1][world_player.x//64].extra_info
+                            text_box(info[0],info[1],info[2],info[3])
+                    elif player_direction == 270:
+                        if map[world_player.y//64][world_player.x//64-1].extra_info != () and world_player.x != 576:
+                            info = map[world_player.y//64][world_player.x//64-1].extra_info
+                            text_box(info[0],info[1],info[2],info[3])
+                    elif player_direction == 0:
+                        if map[world_player.y//64+1][world_player.x//64].extra_info != () and world_player.x != 576:
+                            info = map[world_player.y//64+1][world_player.x//64].extra_info
+                            text_box(info[0],info[1],info[2],info[3])
                     
                     
         if world_player.x == world_player.target_x and world_player.y == world_player.target_y:
@@ -496,6 +526,7 @@ while running:
                     enemy = load_enemy()
                     start_transition("battle")
                 world_player.moving = False
+
             
             
             else:
@@ -513,6 +544,9 @@ while running:
 
 
             draw_world()
+        
+        if timer != 60:
+            timer += 1
 
 
     #well hello there
