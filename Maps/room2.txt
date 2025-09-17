@@ -2,7 +2,7 @@ w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick
 w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Brick
 w-Brick,p-Grass,p-Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,p-Grass,p-Grass,w-Brick
 w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Brick
-w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,l-Grass-start~1~4
+w-Brick,p-Grass,h-Heal,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,l-Grass-start~1~4
 w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,l-Grass-start~1~5
 w-Brick,p-Grass,p-Grass,r-Random,r-Random,r-Random,r-Random,p-Grass,p-Grass,w-Brick
 w-Brick,p-Grass,p-Grass,r-Random,r-Random,r-Random,r-Random,p-Grass,p-Grass,w-Brick

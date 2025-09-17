@@ -6,7 +6,7 @@ print("hello world")
 
 
 class being(): #for battles e.g. player or enemy and contains their stats
-    def __init__(self,name: str,max_health: int,strength: int,defence: int):#set up object
+    def __init__(self,name: str,max_health: int,strength: int,defence: int,lvl=int,exp=None):#set up object
         self.name = name
         self.max_health = max_health
         self.health = max_health
@@ -15,6 +15,8 @@ class being(): #for battles e.g. player or enemy and contains their stats
         self.alive = True
         self.defended = 1 # 1 is not defended, 2 is defended, for when use defend button
         self.choice = "attack"
+        self.lvl = lvl
+        self.exp = exp
 
     def hurt(self, enemy_strength): #attack this being
         global dmg
@@ -26,7 +28,6 @@ class being(): #for battles e.g. player or enemy and contains their stats
         if self.health <= 0:
             self.health = 0
             self.alive = False
-
 
 
     def attack(self):
@@ -91,12 +92,12 @@ def map_load(maptext:str):
                     block = tile(block_info[1],"wall")
             elif x[0] == "l":
                 block = tile(block_info[1],"leave",tuple(block_info[2].split("~")))
-            elif x[0] == "h":
-                block = tile(block_info[1],"harm")
             elif x[0] == "e":
                 block = tile(block_info[1],"enemy")
             elif x[0] == "r":
                 block = tile(block_info[1],"random")
+            elif x[0] == "h":
+                block = tile(block_info[1],"heal")
             map[-1].append(block)
             if block_info[1] not in tiles:
                 tiles[block_info[1]]=pygame.transform.scale(pygame.image.load("Assets/"+block_info[1  ]+".png").convert(),(64*widnow_scale,64*widnow_scale))
@@ -104,9 +105,11 @@ def map_load(maptext:str):
     return map
 
 
-def load_enemy():#random enemy
-    types = ["Slime","Mushroom"]
-    return being(random.choice(types),random.randint(9,11),random.randint(3,5),random.randint(3,4))
+def load_enemy(set):#random enemy
+    if set == "start":
+        types = ["Slime","Mushroom"]
+        lvl = random.randint(2,4)
+        return being(random.choice(types),random.randint(lvl*3,lvl*4),random.randint(lvl+1,lvl+4),random.randint(lvl+1,lvl+4),lvl)
 
 
 
@@ -119,9 +122,9 @@ player_direction = 90#direction facing
 text_list = [] #list of pop ups
 
 
-player = being("Player",24,4,4) 
+player = being("Player",20,5,5,5,80) #health,strength,defence,lvl,exp
 
-enemy = load_enemy()
+enemy = load_enemy("start")
 #create battle objects
 #enemy.health -= 5
 
@@ -170,8 +173,8 @@ def battle_scene():#draw battle
     screen.fill((0,0,0))
 
     #enemy name
-    enemy_name = big_font.render(enemy.name, False, (255, 255, 255))
-    screen.blit(enemy_name, (100,0))
+    enemy_name_and_level = big_font.render("Lvl "+str(enemy.lvl)+"   "+enemy.name, False, (255, 255, 255))
+    screen.blit(enemy_name_and_level, (100,0))
 
     #enemy health bar
     enemy_health_bar_back = pygame.Rect(80*widnow_scale,80*widnow_scale,480*widnow_scale,32*widnow_scale)
@@ -188,6 +191,10 @@ def battle_scene():#draw battle
     #seperator
     seperator = pygame.Rect(0,400,640,4)
     pygame.draw.rect(screen,(120,120,120),seperator)
+
+    #player level
+    player_level = little_font.render("Lvl "+str(player.lvl), False, (255, 255, 255))
+    screen.blit(player_level, (5,420))
 
     #player Health
     player_health_bar_back = pygame.Rect(80,420,480,32)
@@ -250,9 +257,6 @@ def battle_scene():#draw battle
 
 
 
-
-
-
 def enemy_turn(): #enemy action logic
     choice = random.randint(1,4)
     if choice <= 3:
@@ -267,12 +271,14 @@ def enemy_turn(): #enemy action logic
         text_list.append(text_pop_up("Defending",60,(200*widnow_scale,110*widnow_scale),"defending"))
 
 
+
 def game_over(): # you died - need to make you get out of it
     screen.fill((0,0,0))
 
     #game over text
     text = little_font.render("Game Over WOMP WOMP stinky", False, (255, 255, 255))
     screen.blit(text, (120*widnow_scale,240*widnow_scale))
+
 
 
 def game_won():#won battle
@@ -286,15 +292,31 @@ def game_won():#won battle
     text_WELL_DONE = font(42).render(" WELL DONE", False, (255, 255, 255))
     screen.blit(text_WELL_DONE, (180,240))
 
+    if timer > 30:
+        exp_up_text = little_font.render("You gained "+str(enemy.lvl*5)+" exp", False, (255, 255, 255))
+        screen.blit(exp_up_text, (220,340))
+        if player.exp-enemy.lvl*5 <= 2.5*((player.lvl)**2) + 2.5*(player.lvl):#if levelled up
+            #print(player.exp-enemy.lvl*5)
+            level_up_text = little_font.render("You Leveled up, you are now Level "+str(player.lvl), False, (255, 255, 255))
+            screen.blit(level_up_text, (120,380))
     if timer > 60:#appear after a second
         text = little_font.render("Press any key to go to world", False, (255, 255, 255))
-        screen.blit(text, (160,360))
+        screen.blit(text, (160,480))
+
+
+def level_up():
+    player.lvl += 1
+    player.max_health = player.lvl*4
+    player.health += 4
+    player.strength = player.lvl
+    player.defence = player.lvl
 
 
 def transition(): # black screen slowly passes over
     progress = (64 - timer)*10
     curtain = pygame.Rect(0,0,progress,640)
     pygame.draw.rect(screen,(0,0,0),curtain)
+
 
 
 def start_transition(next_stage): #start transition
@@ -307,12 +329,14 @@ def start_transition(next_stage): #start transition
     game_state = "transition"
 
 
+
 def text_box(next_stage:str,title:str,desc:list,img="Random.png"):#start text box phase
     global post_transition_stage,text_box_info,game_state
 
     post_transition_stage = next_stage
     game_state = "text_box"
     text_box_info = {"title":title,"desc":desc,"img":img}
+
 
 
 def draw_text_box(): #draw text box
@@ -338,6 +362,7 @@ def draw_text_box(): #draw text box
         screen.blit(desc, ((200)*widnow_scale,(410+i*30)*widnow_scale))
 
 
+
 def draw_world():#draw map
     screen.fill((0,0,0))
     for y in range(0,10):#0-9
@@ -359,6 +384,7 @@ def draw_world():#draw map
     player_rect = player_img.get_rect()
     player_rect.center = ((world_player.x+32)*widnow_scale,(world_player.y+32)*widnow_scale)
     screen.blit(player_img,player_rect)
+
 
 
 running = True
@@ -441,6 +467,9 @@ while running:
                 else:
                     start_transition("game_won")
                     player_turn = True
+                    player.exp += enemy.lvl*5
+                    while player.exp > 2.5*((player.lvl+1)**2) + 2.5*(player.lvl+1):
+                        level_up()
                     
                     
 
@@ -563,10 +592,11 @@ while running:
                     
         if world_player.x == world_player.target_x and world_player.y == world_player.target_y: #logic for when standing on new tile
             if world_player.moving == True:
+                #print(map[world_player.y//64][world_player.x//64].type)
                 if map[world_player.y//64][world_player.x//64].type == "random":
                     #print(1111111)
                     if random.randint(1,5)==5:
-                        enemy = load_enemy()
+                        enemy = load_enemy("start")
                         start_transition("battle")
                 elif map[world_player.y//64][world_player.x//64].type == "leave":
                     info = map[world_player.y//64][world_player.x//64].extra_info
@@ -575,8 +605,12 @@ while running:
                     next_map = info[0]
                     start_transition("world")
                 elif map[world_player.y//64][world_player.x//64].type == "enemy":
-                    enemy = load_enemy()
+                    enemy = load_enemy("start")
                     start_transition("battle")
+                elif map[world_player.y//64][world_player.x//64].type == "heal":
+                    #print(1)
+                    player.health = player.max_health
+                    #add particle effect
                 world_player.moving = False
 
             
