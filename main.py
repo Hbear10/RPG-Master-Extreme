@@ -5,8 +5,8 @@ import Spritesheet
 print("hello world")
 
 
-class being():
-    def __init__(self,name: str,max_health: int,strength: int,defence: int):
+class being(): #for battles e.g. player or enemy and contains their stats
+    def __init__(self,name: str,max_health: int,strength: int,defence: int):#set up object
         self.name = name
         self.max_health = max_health
         self.health = max_health
@@ -33,22 +33,22 @@ class being():
         return self.strength
 
 
-class text_pop_up():
-    def __init__(self,text:str,duration:int,coords: tuple, type="dmg-indicator"):
+class text_pop_up(): # for the text pop ups e.g. appear as attack indicators
+    def __init__(self,text:str,duration:int,coords: tuple, type="dmg-indicator"): # add information
         self.text = text
         self.duration = duration
         self.coords = coords
         self.type = type
 
 
-class tile():
-    def __init__(self, img: str,type: str, extra_info=()):
-        self.img = img #will start as colour then switch to img
-        self.type = type
-        self.extra_info = extra_info
+class tile():#tiles that displayed in the world are objects - contain info about their looks and the different interactions they create
+    def __init__(self, img: str,type: str, extra_info=()):#add information
+        self.img = img 
+        self.type = type#path,wall,enemy,random,sign,etc.
+        self.extra_info = extra_info # any additional info
 
 
-class world_being():
+class world_being(): # player in world
     def __init__(self, x:int,y:int):
         self.x = x
         self.y = y
@@ -69,6 +69,7 @@ class world_being():
 
 map = []
 
+#take list of map and load it and create the object
 def map_load(maptext:str):
     global tiles
 
@@ -103,27 +104,28 @@ def map_load(maptext:str):
     return map
 
 
-def load_enemy():
+def load_enemy():#random enemy
     types = ["Slime","Mushroom"]
     return being(random.choice(types),random.randint(9,11),random.randint(3,5),random.randint(3,4))
 
 
 
 
-world_player = world_being(64,64)
-player_speed = 4
-player_direction = 90
+world_player = world_being(64,64) # create player in world
+player_speed = 4 #how fast moves
+player_direction = 90#direction facing
 
 
-text_list = []
+text_list = [] #list of pop ups
 
 
-player = being("Player",24,4,4)
+player = being("Player",24,4,4) 
 
 enemy = load_enemy()
+#create battle objects
 #enemy.health -= 5
 
-game_state = "transition"
+game_state = "transition" # phase of game so the program knows what to draw and what logic to do and what inputs to take
 
 #battle variables
 battle_selector = 1
@@ -138,7 +140,7 @@ screen.fill((255,255,255))
 
 pygame.font.init() 
 
-def font(n:int):
+def font(n:int): #returns a font of n size
     return pygame.font.SysFont('Comic Sans MS', n*widnow_scale)
 
 
@@ -149,21 +151,22 @@ clock = pygame.time.Clock()
 timer = 64
 
 text_box_info = {"title":"","desc":[""],"img":"Random.png"}
-
+#creates animation for the player's attack slash
 slash_sheet = Spritesheet.SpriteSheet("Assets\Slash.png")
 slash = [slash_sheet.image_at((0,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((16,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((32,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((48,0,16,16),colorkey=(0,0,0)),\
         slash_sheet.image_at((64,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((80,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((96,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((112,0,16,16),colorkey=(0,0,0))]
 
 
 #tiles = {"Grass":pygame.image.load("Assets/Grass.png").convert(),"Brick":pygame.image.load("Assets/Brick.png").convert(),"Enemy":pygame.image.load("Assets/Enemy.png").convert(),}
-tiles = {}
+tiles = {}#dictionary of loaded images
 map = map_load("start")
 
-
+#for after transition
 post_transition_stage = "world"
+#for moving between maps
 next_map = "start"
 
-def battle_scene():
+def battle_scene():#draw battle
     screen.fill((0,0,0))
 
     #enemy name
@@ -182,6 +185,7 @@ def battle_scene():
     enemy_health = little_font.render(str(enemy.health)+" / "+str(enemy.max_health), False, (255, 255, 255))
     screen.blit(enemy_health, (280,80))
 
+    #seperator
     seperator = pygame.Rect(0,400,640,4)
     pygame.draw.rect(screen,(120,120,120),seperator)
 
@@ -202,8 +206,6 @@ def battle_scene():
     screen.blit(defend_select, (360,460))
     stats_select = big_font.render("stats",False, (255,255,255))
     screen.blit(stats_select, (100,540))
-
-    #run
     run_select = big_font.render("run",False, (255,255,255))
     screen.blit(run_select, (360,540))
 
@@ -215,18 +217,20 @@ def battle_scene():
 
         #print(timer)
 
+    #selector - yellow arrows
     x_incriment = (battle_selector+1)%2*260
     y_incriment = (battle_selector-1)//2*80
     pygame.draw.polygon(screen, arrow_colour, ((60+x_incriment,480+y_incriment),(60+x_incriment,520+y_incriment),(80+x_incriment,500+y_incriment)))
     pygame.draw.polygon(screen, arrow_colour, ((300+x_incriment,480+y_incriment),(300+x_incriment,520+y_incriment),(280+x_incriment,500+y_incriment)))
 
-    if player_turn == True or timer >= 30 or enemy.choice == "defend":
+    #draw enemy and their attack animation
+    if player_turn == True or timer >= 30 or enemy.choice == "defend":#not moving
         #enemy sprite
         enemy_sprite = pygame.image.load("Assets/"+enemy.name+".png").convert()
         enemy_rect = enemy_sprite.get_rect()
         enemy_rect.center = (320,240)
         screen.blit(enemy_sprite,enemy_rect)
-    else:
+    else:#jumping up
         if timer > 15:
             #enemy sprite
             enemy_sprite = pygame.image.load("Assets/"+enemy.name+".png").convert()
@@ -234,14 +238,14 @@ def battle_scene():
          #   print(timer)
             enemy_rect.center = (320,240-(15-(timer-15))*2)
             screen.blit(enemy_sprite,enemy_rect)
-        else:
+        else:#falling down
             #enemy sprite
             enemy_sprite = pygame.image.load("Assets/"+enemy.name+".png").convert()
             enemy_rect = enemy_sprite.get_rect()
             enemy_rect.center = (320,240-timer*2)
             screen.blit(enemy_sprite,enemy_rect)
         
-    if timer >= 36 and player.choice == "attack":
+    if timer >= 36 and player.choice == "attack":#player attack slash
         screen.blit(pygame.transform.scale(slash[(60-timer)//4],(128,128)),(260,260))
 
 
@@ -249,7 +253,7 @@ def battle_scene():
 
 
 
-def enemy_turn():
+def enemy_turn(): #enemy action logic
     choice = random.randint(1,4)
     if choice <= 3:
         #enemy attacks
@@ -263,7 +267,7 @@ def enemy_turn():
         text_list.append(text_pop_up("Defending",60,(200*widnow_scale,110*widnow_scale),"defending"))
 
 
-def game_over():
+def game_over(): # you died - need to make you get out of it
     screen.fill((0,0,0))
 
     #game over text
@@ -271,10 +275,10 @@ def game_over():
     screen.blit(text, (120*widnow_scale,240*widnow_scale))
 
 
-def game_won():
+def game_won():#won battle
     screen.fill((0,0,0))
 
-    #game over text
+    #game won text
     text_you_beat = font(42).render("You beat ", False, (255, 255, 255))
     screen.blit(text_you_beat, (240,120))
     text_enemy_name = font(42).render(enemy.name, False, (255, 255, 255))
@@ -282,7 +286,7 @@ def game_won():
     text_WELL_DONE = font(42).render(" WELL DONE", False, (255, 255, 255))
     screen.blit(text_WELL_DONE, (180,240))
 
-    if timer > 60:
+    if timer > 60:#appear after a second
         text = little_font.render("Press any key to go to world", False, (255, 255, 255))
         screen.blit(text, (160,360))
 
@@ -293,7 +297,7 @@ def transition(): # black screen slowly passes over
     pygame.draw.rect(screen,(0,0,0),curtain)
 
 
-def start_transition(next_stage):
+def start_transition(next_stage): #start transition
     global post_transition_stage, text_list,timer,game_state
 
     post_transition_stage = next_stage
@@ -303,7 +307,7 @@ def start_transition(next_stage):
     game_state = "transition"
 
 
-def text_box(next_stage:str,title:str,desc:list,img="Random.png"):
+def text_box(next_stage:str,title:str,desc:list,img="Random.png"):#start text box phase
     global post_transition_stage,text_box_info,game_state
 
     post_transition_stage = next_stage
@@ -311,7 +315,7 @@ def text_box(next_stage:str,title:str,desc:list,img="Random.png"):
     text_box_info = {"title":title,"desc":desc,"img":img}
 
 
-def draw_text_box():
+def draw_text_box(): #draw text box
     big_box_outline = pygame.Rect(0,400*widnow_scale,640*widnow_scale,240*widnow_scale)
     pygame.draw.rect(screen,(255,255,255),big_box_outline)
     big_box = pygame.Rect(5*widnow_scale,405*widnow_scale,630*widnow_scale,230*widnow_scale)
@@ -334,7 +338,7 @@ def draw_text_box():
         screen.blit(desc, ((200)*widnow_scale,(410+i*30)*widnow_scale))
 
 
-def draw_world():
+def draw_world():#draw map
     screen.fill((0,0,0))
     for y in range(0,10):#0-9
         for x in range(0,10):#0-9
@@ -348,6 +352,8 @@ def draw_world():
 
     # player = pygame.Rect(world_player.x,world_player.y,64,64)
     # pygame.draw.rect(screen,("YELLOW"),player)
+
+    #player
     player_png = ["Player_Down.png","Player_Right.png","Player_Up.png","Player_Left.png"][player_direction//90]
     player_img = pygame.transform.scale(pygame.image.load("Assets/"+player_png).convert(),(64,64))
     player_rect = player_img.get_rect()
@@ -369,7 +375,8 @@ while running:
                 if event.type == pygame.QUIT:
                     running = False
 
-                #moving selector indicator
+
+                #player inputs
                 if event.type == pygame.KEYDOWN:
                     #print(111)
                     if event.key == pygame.K_UP:
@@ -385,7 +392,8 @@ while running:
                         # player_turn = False
                         # timer = 120
 
-                        if battle_selector == 1:
+                        #player choice logic
+                        if battle_selector == 1:#attack
                             player.defended = 1
                             enemy.hurt(player.strength)
                             x=text_pop_up(str(dmg),60,(240,240))
@@ -395,14 +403,14 @@ while running:
                             player_turn = False
                             timer = 60
                             player.choice = "attack"
-                        elif battle_selector == 2:
+                        elif battle_selector == 2:#defend
                             player.defended = 2
                             player_turn = False
                             timer = 60
                             player.choice = "defend"
-                        elif battle_selector == 3:
+                        elif battle_selector == 3:#stats
                             text_box("battle","Stats",["hi","bye"],"Slime.png")
-                        elif battle_selector == 4:
+                        elif battle_selector == 4:#run
                             start_transition("world")
                             player.choice = "run"
                     
@@ -421,13 +429,13 @@ while running:
                 if enemy.choice == "attack":
                     player.hurt(enemy.strength)
                     text_list.append(text_pop_up(str(dmg),60,(560*widnow_scale,440*widnow_scale),"dmg-indicator"))
+                    if player.health == 0:
+                        start_transition("game_over")
 
 
             if timer == 30:
                 if enemy.health > 0:
                     enemy_turn()
-                    if player.health == 0:
-                        start_transition("game_over")
                         
 
                 else:
@@ -438,22 +446,22 @@ while running:
 
         battle_scene()
     
-    elif game_state == "game_over":
+    elif game_state == "game_over":#game over
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
         game_over()
 
-    elif game_state == "game_won":  
+    elif game_state == "game_won":  #won game
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
 
-                if event.type == pygame.KEYDOWN:
+                if event.type == pygame.KEYDOWN:#go back to world
                     start_transition("world")
         
-        game_won()
-        timer += 1
+        game_won()#draw game won
+        timer += 1#timer
 
         
     elif game_state == "transition":    
@@ -470,7 +478,7 @@ while running:
                 timer = 0
             elif post_transition_stage == "world":
                 map = map_load(next_map)
-                if map[world_player.y//64][world_player.x//64].type == "enemy":
+                if map[world_player.y//64][world_player.x//64].type == "enemy":#make sure not end up back on enemy tile
                     world_player.x -= 64
                     world_player.target_x -= 64
             elif post_transition_stage == "battle":
@@ -479,7 +487,7 @@ while running:
             timer -= 1
    
    
-    elif game_state == "text_box":    
+    elif game_state == "text_box":    #text box - stats,signs draw it
         #print(1)  
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -493,7 +501,7 @@ while running:
 
         
   
-    elif game_state == "world":     # 
+    elif game_state == "world":     # draw map and moving logic
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -502,7 +510,7 @@ while running:
                             pass
                             #add interact
 
-        if world_player.moving == False:
+        if world_player.moving == False: #moving logic
             #if pygame.key.get_pressed[pygame.KEYUP]:
             if  pygame.key.get_pressed()[pygame.K_UP]:
                 player_direction = 180
@@ -514,26 +522,26 @@ while running:
                     print("Can't go")
             if  pygame.key.get_pressed()[pygame.K_DOWN]:
                 player_direction = 0
-                if map[world_player.y//64+1][world_player.x//64].type != "wall" and world_player.y != 576:
+                if map[world_player.y//64+1][world_player.x//64].type != "wall" and world_player.y != 576:#if not wall
                     world_player.target_y = world_player.y+64
                     world_player.moving = True
                 else:
                     print("Can't go")
             elif pygame.key.get_pressed()[pygame.K_LEFT]:
                 player_direction = 270
-                if map[world_player.y//64][world_player.x//64-1].type != "wall" and world_player.x != 0:
+                if map[world_player.y//64][world_player.x//64-1].type != "wall" and world_player.x != 0:#if not wall
                     world_player.target_x = world_player.x-64
                     world_player.moving = True
                 else:
                     print("Can't go")
             elif pygame.key.get_pressed()[pygame.K_RIGHT]:
                 player_direction = 90
-                if map[world_player.y//64][world_player.x//64+1].type != "wall" and world_player.x != 576:
+                if map[world_player.y//64][world_player.x//64+1].type != "wall" and world_player.x != 576:#if not wall
                     world_player.target_x = world_player.x+64
                     world_player.moving = True
                 else:
                     print("Can't go")
-            elif pygame.key.get_pressed()[pygame.K_SPACE]:
+            elif pygame.key.get_pressed()[pygame.K_SPACE]:#interactive tiles
                 if timer > 30:
                     if player_direction == 90:#right
                         if map[world_player.y//64][world_player.x//64+1].extra_info != () and world_player.x != 576:
@@ -553,7 +561,7 @@ while running:
                             text_box(info[0],info[1],info[2],info[3])
                     
                     
-        if world_player.x == world_player.target_x and world_player.y == world_player.target_y:
+        if world_player.x == world_player.target_x and world_player.y == world_player.target_y: #logic for when standing on new tile
             if world_player.moving == True:
                 if map[world_player.y//64][world_player.x//64].type == "random":
                     #print(1111111)
@@ -576,7 +584,7 @@ while running:
             else:
                 draw_world()
                 
-        else:
+        else:#move player
             if world_player.x > world_player.target_x:#move left
                 world_player.x -= player_speed
             elif world_player.x < world_player.target_x:#move right
@@ -598,7 +606,7 @@ while running:
 
 
     #if len(text_list) > 0:
-    for i in text_list:
+    for i in text_list: #draw text indicators above everything else
         #print(text_list)
         #print(type(i))
         #print(i.coords)
@@ -613,7 +621,7 @@ while running:
         screen.blit(words, i.coords)
         i.duration -= 1
 
-    for i in text_list:
+    for i in text_list: #remove outdated text on screen
         if i.duration <= 0:
             text_list.pop(text_list.index(i))
 
