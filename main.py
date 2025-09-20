@@ -57,9 +57,18 @@ class world_being(): # player in world
         self.target_x = x
         self.target_y = y
         
-        
 
+#finitude
+#/ˈfɪnɪtjuːd,ˈfʌɪnɪtjuːd/
+#noun formal
+#the state of having limits or bounds.  
 
+class item():
+    def __init__(self,name,type,finitude,extra_info=[]):
+        self.name = name
+        self.type = type
+        self.finitude = finitude
+        self.extra_info = extra_info
 
 # grass_tile = tile("Grass.png","path")
 # path_tile = tile("Grass.png","path")
@@ -105,13 +114,32 @@ def map_load(maptext:str):
     return map
 
 
+
+
+def item_load(file):
+    items = {}
+    file = open(file)
+    file_w_bad_formatting = file.read().split("\n")
+    for line in file_w_bad_formatting:
+        item_data = line.split(",")
+        if len(item_data)==4:
+            extra = item_data[3].split("~")
+        else:
+            extra = []
+        items[item_data[0]] = item(item_data[0],item_data[1],item_data[2],extra_info=extra)
+    file.close()
+    return items
+
+
+itemtypes = item_load("itemtypes.txt")
+print(itemtypes)
+
+
 def load_enemy(set):#random enemy
     if set == "start":
         types = ["Slime","Mushroom"]
         lvl = random.randint(2,4)
         return being(random.choice(types),random.randint(lvl*3,lvl*4),random.randint(lvl+1,lvl+4),random.randint(lvl+1,lvl+4),lvl)
-
-
 
 
 world_player = world_being(64,64) # create player in world
@@ -159,6 +187,19 @@ slash_sheet = Spritesheet.SpriteSheet("Assets\Slash.png")
 slash = [slash_sheet.image_at((0,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((16,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((32,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((48,0,16,16),colorkey=(0,0,0)),\
         slash_sheet.image_at((64,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((80,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((96,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((112,0,16,16),colorkey=(0,0,0))]
 
+projectile_sheet = Spritesheet.SpriteSheet("Assets\Projectile.png")
+projectile = [projectile_sheet.image_at((0,0,16,16),colorkey=(0,0,0)),projectile_sheet.image_at((16,0,16,16),colorkey=(0,0,0)),projectile_sheet.image_at((32,0,16,16),colorkey=(0,0,0)),projectile_sheet.image_at((48,0,16,16),colorkey=(0,0,0)),\
+        projectile_sheet.image_at((64,0,16,16),colorkey=(0,0,0)),projectile_sheet.image_at((80,0,16,16),colorkey=(0,0,0)),projectile_sheet.image_at((96,0,16,16),colorkey=(0,0,0)),projectile_sheet.image_at((112,0,16,16),colorkey=(0,0,0))]
+
+
+
+battle_selection_mode = "normal"#normal or item
+inventory = {"Stick":5,"Rock":4,"Magic Sword":"-","Potion":3,"Broken Shield":99,"Back":"<"}#,"plase":4,"halp":4,"me":4,"sword":1}
+inventory_address = 0
+inventory_increment=0 #how much I move the item list down
+money = 100
+
+
 
 #tiles = {"Grass":pygame.image.load("Assets/Grass.png").convert(),"Brick":pygame.image.load("Assets/Brick.png").convert(),"Enemy":pygame.image.load("Assets/Enemy.png").convert(),}
 tiles = {}#dictionary of loaded images
@@ -192,43 +233,78 @@ def battle_scene():#draw battle
     seperator = pygame.Rect(0,400,640,4)
     pygame.draw.rect(screen,(120,120,120),seperator)
 
-    #player level
-    player_level = little_font.render("Lvl "+str(player.lvl), False, (255, 255, 255))
-    screen.blit(player_level, (5,420))
 
-    #player Health
-    player_health_bar_back = pygame.Rect(80,420,480,32)
-    pygame.draw.rect(screen,(64,64,64),player_health_bar_back)
-    player_health_bar_front = pygame.Rect(80,420,480*(player.health/player.max_health),32)
-    pygame.draw.rect(screen,(255,0,0),player_health_bar_front)
+    #if on normal selection screen/menu
+    if battle_selection_mode == "normal":
+        #player level
+        player_level = little_font.render("Lvl "+str(player.lvl), False, (255, 255, 255))
+        screen.blit(player_level, (5,420))
 
-    #player health info
-    player_health = little_font.render(str(player.health)+" / "+str(player.max_health), False, (255, 255, 255))
-    screen.blit(player_health, (280,420))
+        #player Health
+        player_health_bar_back = pygame.Rect(80,420,480,32)
+        pygame.draw.rect(screen,(64,64,64),player_health_bar_back)
+        player_health_bar_front = pygame.Rect(80,420,480*(player.health/player.max_health),32)
+        pygame.draw.rect(screen,(255,0,0),player_health_bar_front)
 
-    #options
-    attack_select = big_font.render("attack",False, (255,255,255))
-    screen.blit(attack_select, (100,460))
-    defend_select = big_font.render("defend",False, (255,255,255))
-    screen.blit(defend_select, (360,460))
-    stats_select = big_font.render("stats",False, (255,255,255))
-    screen.blit(stats_select, (100,540))
-    run_select = big_font.render("run",False, (255,255,255))
-    screen.blit(run_select, (360,540))
+        #player health info
+        player_health = little_font.render(str(player.health)+" / "+str(player.max_health), False, (255, 255, 255))
+        screen.blit(player_health, (280,420))
 
-    #selector indicators
-    if player_turn:
-        arrow_colour = (255,255,0)
-    else:
-        arrow_colour = (125,125,0)
+        #options
+        attack_select = big_font.render("attack",False, (255,255,255))
+        screen.blit(attack_select, (100,460))
+        item_select = big_font.render("item",False, (255,255,255))
+        screen.blit(item_select, (360,460))
+        stats_select = big_font.render("stats",False, (255,255,255))
+        screen.blit(stats_select, (100,540))
+        run_select = big_font.render("run",False, (255,255,255))
+        screen.blit(run_select, (360,540))
 
-        #print(timer)
+        #selector indicators
+        if player_turn:
+            arrow_colour = (255,255,0)
+        else:
+            arrow_colour = (125,125,0)
 
-    #selector - yellow arrows
-    x_incriment = (battle_selector+1)%2*260
-    y_incriment = (battle_selector-1)//2*80
-    pygame.draw.polygon(screen, arrow_colour, ((60+x_incriment,480+y_incriment),(60+x_incriment,520+y_incriment),(80+x_incriment,500+y_incriment)))
-    pygame.draw.polygon(screen, arrow_colour, ((300+x_incriment,480+y_incriment),(300+x_incriment,520+y_incriment),(280+x_incriment,500+y_incriment)))
+            #print(timer)
+
+        #selector - yellow arrows
+        x_incriment = (battle_selector+1)%2*260
+        y_incriment = (battle_selector-1)//2*80
+        pygame.draw.polygon(screen, arrow_colour, ((60+x_incriment,480+y_incriment),(60+x_incriment,520+y_incriment),(80+x_incriment,500+y_incriment)))
+        pygame.draw.polygon(screen, arrow_colour, ((300+x_incriment,480+y_incriment),(300+x_incriment,520+y_incriment),(280+x_incriment,500+y_incriment)))
+    elif battle_selection_mode == "item":#item selector
+        item_title = font(40).render("Items", False, (255, 255, 255))
+        screen.blit(item_title, (20,400))
+
+        #backboard for items
+        item_list_back = pygame.Rect(200,414,380,215)
+        pygame.draw.rect(screen,(64,64,64),item_list_back)
+
+        if player_turn:
+            arrow_colour = (255,255,0)
+        else:
+            arrow_colour = (125,125,0)
+
+            #print(timer)
+
+        #selector - yellow arrow
+        y_incriment = (inventory_address-inventory_increment)*40
+        pygame.draw.polygon(screen, arrow_colour, ((170,420+y_incriment),(170,460+y_incriment),(190,440+y_incriment)))
+
+        #items
+        names = list(inventory.keys())[0+inventory_increment:5+inventory_increment]
+        #print(inventory_increment)
+        for i in names:
+            item_text = font(38).render(i, False, (255, 255, 255))
+            #print(list(inventory.keys()))
+            screen.blit(item_text, (200,410+(names.index(i)*40)))
+            item_amount = font(40).render(str(inventory[i]), False, (255, 255, 255))
+            screen.blit(item_amount, (520,410+(names.index(i)*40)))
+
+
+
+
 
     #draw enemy and their attack animation
     if player_turn == True or timer >= 30 or enemy.choice == "defend":#not moving
@@ -254,6 +330,8 @@ def battle_scene():#draw battle
         
     if timer >= 36 and player.choice == "attack":#player attack slash
         screen.blit(pygame.transform.scale(slash[(60-timer)//4],(128,128)),(260,260))
+    if timer >= 36 and player.choice == "projectile":#player attack slash
+        screen.blit(pygame.transform.scale(projectile[(60-timer)//4],(128,128)),(260,260))
 
 
 
@@ -380,7 +458,8 @@ def draw_world():#draw map
 
     #player
     player_png = ["Player_Down.png","Player_Right.png","Player_Up.png","Player_Left.png"][player_direction//90]
-    player_img = pygame.transform.scale(pygame.image.load("Assets/"+player_png).convert(),(64,64))
+    player_img = pygame.transform.scale(pygame.image.load("Assets/"+player_png).convert(),(64,64))#getimage and convert to 64x64 and 
+    player_img.set_colorkey((255,0,0))#remove all red as i used that as that as beckground when making the pixel art
     player_rect = player_img.get_rect()
     player_rect.center = ((world_player.x+32)*widnow_scale,(world_player.y+32)*widnow_scale)
     screen.blit(player_img,player_rect)
@@ -405,41 +484,118 @@ while running:
                 #player inputs
                 if event.type == pygame.KEYDOWN:
                     #print(111)
-                    if event.key == pygame.K_UP:
-                        battle_selector = [0,3,4,1,2][battle_selector]
-                    if event.key == pygame.K_DOWN:
-                        battle_selector = [0,3,4,1,2][battle_selector]
-                    if event.key == pygame.K_LEFT:
-                        battle_selector = [0,2,1,4,3][battle_selector]
-                    if event.key == pygame.K_RIGHT:
-                        battle_selector = [0,2,1,4,3][battle_selector]
-        
-                    if event.key == pygame.K_SPACE: # add enter key as well
-                        # player_turn = False
-                        # timer = 120
+                    if battle_selection_mode == "normal":
+                        if event.key == pygame.K_UP:
+                            battle_selector = [0,3,4,1,2][battle_selector]
+                        if event.key == pygame.K_DOWN:
+                            battle_selector = [0,3,4,1,2][battle_selector]
+                        if event.key == pygame.K_LEFT:
+                            battle_selector = [0,2,1,4,3][battle_selector]
+                        if event.key == pygame.K_RIGHT:
+                            battle_selector = [0,2,1,4,3][battle_selector]
+            
+                        if event.key == pygame.K_SPACE: # add enter key as well
+                            # player_turn = False
+                            # timer = 120
 
-                        #player choice logic
-                        if battle_selector == 1:#attack
-                            player.defended = 1
-                            enemy.hurt(player.strength)
-                            x=text_pop_up(str(dmg),60,(240,240))
-                            text_list.append(x)
-                            #print(text_list)
-                            #battle_scene()
-                            player_turn = False
-                            timer = 60
-                            player.choice = "attack"
-                        elif battle_selector == 2:#defend
-                            player.defended = 2
-                            player_turn = False
-                            timer = 60
-                            player.choice = "defend"
-                        elif battle_selector == 3:#stats
-                            text_box("battle","Stats",["hi","bye"],"Slime.png")
-                        elif battle_selector == 4:#run
-                            start_transition("world")
-                            player.choice = "run"
-                    
+                            #player choice logic
+                            if battle_selector == 1:#attack
+                                player.defended = 1
+                                enemy.hurt(player.strength)
+                                x=text_pop_up(str(dmg),60,(240,240))
+                                text_list.append(x)
+                                #print(text_list)
+                                #battle_scene()
+                                player_turn = False
+                                timer = 60
+                                player.choice = "attack"
+                            elif battle_selector == 2:#item, was defend
+                                #player.defended = 2
+                                #player_turn = False
+                                #timer = 60
+                                #player.choice = "defend"
+                                battle_selection_mode = "item"
+                            elif battle_selector == 3:#stats
+                                text_box("battle","Stats",["hi","bye"],"Slime.png")
+                            elif battle_selector == 4:#run
+                                start_transition("world")
+                                player.choice = "run"
+                                battle_selection_mode = "normal"
+                    elif battle_selection_mode == "item":
+                        if event.key == pygame.K_UP:
+                            if inventory_address == 0:
+                                inventory_address = len(inventory)-1
+                                if len(inventory) > 5:
+                                    inventory_increment = len(inventory)-5
+                                else:
+                                    inventory_increment = 0
+                            else:
+                                inventory_address -= 1
+
+                                if len(inventory) > 5:
+                                    if inventory_address>=2 and len(inventory)-3>inventory_address:
+                                        inventory_increment-=1 
+                                
+                        if event.key == pygame.K_DOWN:
+                            if inventory_address == len(inventory)-1:
+                                inventory_address = 0
+                                inventory_increment = 0
+                            else:
+                                inventory_address += 1
+
+                                if len(inventory) > 5:
+                                    if inventory_address>2 and len(inventory)-3>=inventory_address:
+                                        inventory_increment+=1 
+
+                        if event.key == pygame.K_SPACE:
+                            item_selected = itemtypes[list(inventory.keys())[inventory_address]]
+                            #print(item_selected)
+                            #print(item_selected.type)
+                            if item_selected.type == "back":
+                                battle_selection_mode = "normal"
+                            elif item_selected.type == "throwable":
+                                player.defended = 1#not defending
+
+                                enemy.hurt(int(item_selected.extra_info[0])) # do damage
+                                x=text_pop_up(str(dmg),60,(240,240))#text pop up
+                                text_list.append(x)
+
+                                player_turn = False
+                                battle_selection_mode = "normal"
+
+                                timer = 60
+                                player.choice = "projectile"
+
+                            elif item_selected.type == "health":
+                                player.defended = 1
+                                player_turn = False
+                                battle_selection_mode = "normal"
+                                timer = 60
+                                player.choice = "heal"
+
+                                heal_amount = int(item_selected.extra_info[0])
+                                if heal_amount+player.health>player.max_health:
+                                    player.health=player.max_health
+                                else:
+                                    player.health+=heal_amount
+
+                            elif item_selected.type == "defence":
+                                player_turn = False
+                                battle_selection_mode = "normal"
+                                timer = 60
+                                player.choice = "defend"
+
+                                player.defended = int(item_selected.extra_info[0])
+
+                            if item_selected.finitude == "finite":
+                                inventory[list(inventory.keys())[inventory_address]]-=1
+                                if inventory[list(inventory.keys())[inventory_address]] == 0:
+                                    inventory.pop(list(inventory.keys())[inventory_address])
+
+                        #if len(inventory) > 5:
+
+
+                        
 
 
         else: # enemy turn
@@ -452,6 +608,7 @@ while running:
                 #print(timer)
             else:
                 player_turn = True
+                battle_selection_mode = "normal"
                 if enemy.choice == "attack":
                     player.hurt(enemy.strength)
                     text_list.append(text_pop_up(str(dmg),60,(560*widnow_scale,440*widnow_scale),"dmg-indicator"))
@@ -464,9 +621,10 @@ while running:
                     enemy_turn()
                         
 
-                else:
+                else:#enemy health 0
                     start_transition("game_won")
                     player_turn = True
+                    battle_selection_mode = "normal"
                     player.exp += enemy.lvl*5
                     while player.exp > 2.5*((player.lvl+1)**2) + 2.5*(player.lvl+1):
                         level_up()
@@ -610,7 +768,9 @@ while running:
                 elif map[world_player.y//64][world_player.x//64].type == "heal":
                     #print(1)
                     player.health = player.max_health
-                    #add particle effect
+                    
+                    x=text_pop_up("Healing",60,(world_player.x,world_player.y+64))#text pop up
+                    text_list.append(x)
                 world_player.moving = False
 
             

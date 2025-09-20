@@ -1,0 +1,6 @@
+Stick,throwable,finite,8
+Rock,throwable,finite,10
+Magic Sword,throwable,infinite,1000
+Potion,health,finite,15
+Broken Shield,defence,finite,20
+Back,back,infinite
