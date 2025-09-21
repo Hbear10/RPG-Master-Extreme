@@ -705,29 +705,31 @@ while running:
                     world_player.target_y = world_player.y-64
                     world_player.moving = True
                     
-                else:
-                    print("Can't go")
+                #else:
+                    #print("Can't go")
+                    
             if  pygame.key.get_pressed()[pygame.K_DOWN]:
                 player_direction = 0
                 if map[world_player.y//64+1][world_player.x//64].type != "wall" and world_player.y != 576:#if not wall
                     world_player.target_y = world_player.y+64
                     world_player.moving = True
-                else:
-                    print("Can't go")
+                #else:
+                    
+                    #print("Can't go")
             elif pygame.key.get_pressed()[pygame.K_LEFT]:
                 player_direction = 270
                 if map[world_player.y//64][world_player.x//64-1].type != "wall" and world_player.x != 0:#if not wall
                     world_player.target_x = world_player.x-64
                     world_player.moving = True
-                else:
-                    print("Can't go")
+                #else:
+                    #print("Can't go")
             elif pygame.key.get_pressed()[pygame.K_RIGHT]:
                 player_direction = 90
                 if map[world_player.y//64][world_player.x//64+1].type != "wall" and world_player.x != 576:#if not wall
                     world_player.target_x = world_player.x+64
                     world_player.moving = True
-                else:
-                    print("Can't go")
+               # else:
+                    #print("Can't go")
             elif pygame.key.get_pressed()[pygame.K_SPACE]:#interactive tiles
                 if timer > 30:
                     if player_direction == 90:#right

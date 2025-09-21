@@ -1,0 +1,10 @@
+w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick
+w-Blue_Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Blue_Brick
+w-Blue_Brick,p-Grass,p-Grass,p-Grass,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,p-Grass,w-Blue_Brick
+w-Blue_Brick,p-Grass,p-Grass,p-Grass,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,p-Grass,w-Blue_Brick
+w-Blue_Brick,p-Grass,p-Grass,p-Grass,w-Blue_Brick,w-Blue_Brick,w-Blue_Door,w-Blue_Brick,p-Grass,w-Blue_Brick
+w-Blue_Brick,p-Blue_Path_NW,p-Blue_Path_N,p-Blue_Path_N,p-Blue_Path_N,p-Blue_Path_N,p-Blue_Path_N,p-Blue_Path_N,p-Blue_Path_N,l-Blue_Path_NE-room2~1~5
+w-Blue_Brick,p-Blue_Path_SW,p-Blue_Path_S,p-Blue_Path_S,p-Blue_Path_S,p-Blue_Path_S,p-Blue_Path_S,p-Blue_Path_S,p-Blue_Path_S,l-Blue_Path_SE-room2~1~6
+w-Blue_Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Blue_Brick
+w-Blue_Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Blue_Brick
+w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick
