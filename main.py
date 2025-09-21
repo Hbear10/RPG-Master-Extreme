@@ -1,6 +1,9 @@
 import pygame
 import random
+
 import Spritesheet
+
+from Map import *
 
 print("hello world")
 
@@ -42,12 +45,6 @@ class text_pop_up(): # for the text pop ups e.g. appear as attack indicators
         self.type = type
 
 
-class tile():#tiles that displayed in the world are objects - contain info about their looks and the different interactions they create
-    def __init__(self, img: str,type: str, extra_info=()):#add information
-        self.img = img 
-        self.type = type#path,wall,enemy,random,sign,etc.
-        self.extra_info = extra_info # any additional info
-
 
 class world_being(): # player in world
     def __init__(self, x:int,y:int):
@@ -78,40 +75,6 @@ class item():
 #p(ath),w(all),l(eave),h(arm),e(ncounter/enemy)
 
 map = []
-
-#take list of map and load it and create the object
-def map_load(maptext:str):
-    global tiles
-
-    map = []
-    file = open("Maps/"+maptext+".txt", "r")
-    map_bad = file.read().split('\n')
-    for i in map_bad:
-        i = i.split(",")
-        map.append([])
-        for x in i:
-            block_info = x.split("-")
-            if block_info[0] == "p":
-                block = tile(block_info[1],"path")
-            elif x[0] == "w":
-                if len(block_info)>=3:
-                    block = tile(block_info[1],"wall",list(block_info[2].split("~")))
-                    block.extra_info[-2] = block.extra_info[-2].split(".")
-                else:
-                    block = tile(block_info[1],"wall")
-            elif x[0] == "l":
-                block = tile(block_info[1],"leave",tuple(block_info[2].split("~")))
-            elif x[0] == "e":
-                block = tile(block_info[1],"enemy")
-            elif x[0] == "r":
-                block = tile(block_info[1],"random")
-            elif x[0] == "h":
-                block = tile(block_info[1],"heal")
-            map[-1].append(block)
-            if block_info[1] not in tiles:
-                tiles[block_info[1]]=pygame.transform.scale(pygame.image.load("Assets/"+block_info[1  ]+".png").convert(),(64*widnow_scale,64*widnow_scale))
-    file.close()
-    return map
 
 
 
@@ -162,17 +125,17 @@ game_state = "transition" # phase of game so the program knows what to draw and 
 battle_selector = 1
 player_turn = True
 dmg = 0
-widnow_scale = 1
+window_scale = 1
 
 pygame.init()
 #set up screen
-screen = pygame.display.set_mode((640*widnow_scale, 640*widnow_scale))
+screen = pygame.display.set_mode((640*window_scale, 640*window_scale))
 screen.fill((255,255,255))
 
 pygame.font.init() 
 
 def font(n:int): #returns a font of n size
-    return pygame.font.SysFont('Comic Sans MS', n*widnow_scale)
+    return pygame.font.SysFont('Comic Sans MS', n*window_scale)
 
 
 big_font = font(50)
@@ -203,7 +166,7 @@ money = 100
 
 #tiles = {"Grass":pygame.image.load("Assets/Grass.png").convert(),"Brick":pygame.image.load("Assets/Brick.png").convert(),"Enemy":pygame.image.load("Assets/Enemy.png").convert(),}
 tiles = {}#dictionary of loaded images
-map = map_load("start")
+map,tiles = map_load("start",tiles,window_scale)
 
 #for after transition
 post_transition_stage = "world"
@@ -218,9 +181,9 @@ def battle_scene():#draw battle
     screen.blit(enemy_name_and_level, (100,0))
 
     #enemy health bar
-    enemy_health_bar_back = pygame.Rect(80*widnow_scale,80*widnow_scale,480*widnow_scale,32*widnow_scale)
+    enemy_health_bar_back = pygame.Rect(80*window_scale,80*window_scale,480*window_scale,32*window_scale)
     pygame.draw.rect(screen,(64,64,64),enemy_health_bar_back)
-    enemy_health_bar_front = pygame.Rect(80*widnow_scale,80*widnow_scale,480*(enemy.health/enemy.max_health)*widnow_scale,32*widnow_scale)
+    enemy_health_bar_front = pygame.Rect(80*window_scale,80*window_scale,480*(enemy.health/enemy.max_health)*window_scale,32*window_scale)
     pygame.draw.rect(screen,(255,0,0),enemy_health_bar_front)
 
     
@@ -346,7 +309,7 @@ def enemy_turn(): #enemy action logic
     elif choice == 4:
         enemy.choice = "defend"
         enemy.defended = 2
-        text_list.append(text_pop_up("Defending",60,(200*widnow_scale,110*widnow_scale),"defending"))
+        text_list.append(text_pop_up("Defending",60,(200*window_scale,110*window_scale),"defending"))
 
 
 
@@ -355,7 +318,7 @@ def game_over(): # you died - need to make you get out of it
 
     #game over text
     text = little_font.render("Game Over WOMP WOMP stinky", False, (255, 255, 255))
-    screen.blit(text, (120*widnow_scale,240*widnow_scale))
+    screen.blit(text, (120*window_scale,240*window_scale))
 
 
 
@@ -418,17 +381,17 @@ def text_box(next_stage:str,title:str,desc:list,img="Random.png"):#start text bo
 
 
 def draw_text_box(): #draw text box
-    big_box_outline = pygame.Rect(0,400*widnow_scale,640*widnow_scale,240*widnow_scale)
+    big_box_outline = pygame.Rect(0,400*window_scale,640*window_scale,240*window_scale)
     pygame.draw.rect(screen,(255,255,255),big_box_outline)
-    big_box = pygame.Rect(5*widnow_scale,405*widnow_scale,630*widnow_scale,230*widnow_scale)
+    big_box = pygame.Rect(5*window_scale,405*window_scale,630*window_scale,230*window_scale)
     pygame.draw.rect(screen,(0,0,0),big_box)
-    middle_line = pygame.Rect(150*widnow_scale,400*widnow_scale,5*widnow_scale,240*widnow_scale)
+    middle_line = pygame.Rect(150*window_scale,400*window_scale,5*window_scale,240*window_scale)
     pygame.draw.rect(screen,(255,255,255),middle_line)
-    title_line = pygame.Rect(0*widnow_scale,440*widnow_scale,150*widnow_scale,5*widnow_scale)
+    title_line = pygame.Rect(0*window_scale,440*window_scale,150*window_scale,5*window_scale)
     pygame.draw.rect(screen,(255,255,255),title_line)
 
     title = little_font.render(text_box_info["title"], False, (255, 255, 255))
-    screen.blit(title, (10*widnow_scale,410*widnow_scale))
+    screen.blit(title, (10*window_scale,410*window_scale))
 
     img = pygame.image.load("Assets/"+text_box_info["img"]).convert()
     img_rect = img.get_rect()
@@ -437,7 +400,7 @@ def draw_text_box(): #draw text box
 
     for i in range(len(text_box_info["desc"])):
         desc = little_font.render(text_box_info["desc"][i], False, (255, 255, 255))
-        screen.blit(desc, ((200)*widnow_scale,(410+i*30)*widnow_scale))
+        screen.blit(desc, ((200)*window_scale,(410+i*30)*window_scale))
 
 
 
@@ -450,7 +413,7 @@ def draw_world():#draw map
 
             #square_img = pygame.image.load("Assets/"+map[y][x].img).convert()
             square_rect = tiles[map[y][x].img].get_rect()
-            square_rect.center = (64*x*widnow_scale+32*widnow_scale,64*y*widnow_scale+32*widnow_scale)
+            square_rect.center = (64*x*window_scale+32*window_scale,64*y*window_scale+32*window_scale)
             screen.blit(tiles[map[y][x].img],square_rect)
 
     # player = pygame.Rect(world_player.x,world_player.y,64,64)
@@ -461,7 +424,7 @@ def draw_world():#draw map
     player_img = pygame.transform.scale(pygame.image.load("Assets/"+player_png).convert(),(64,64))#getimage and convert to 64x64 and 
     player_img.set_colorkey((255,0,0))#remove all red as i used that as that as beckground when making the pixel art
     player_rect = player_img.get_rect()
-    player_rect.center = ((world_player.x+32)*widnow_scale,(world_player.y+32)*widnow_scale)
+    player_rect.center = ((world_player.x+32)*window_scale,(world_player.y+32)*window_scale)
     screen.blit(player_img,player_rect)
 
 
@@ -611,7 +574,7 @@ while running:
                 battle_selection_mode = "normal"
                 if enemy.choice == "attack":
                     player.hurt(enemy.strength)
-                    text_list.append(text_pop_up(str(dmg),60,(560*widnow_scale,440*widnow_scale),"dmg-indicator"))
+                    text_list.append(text_pop_up(str(dmg),60,(560*window_scale,440*window_scale),"dmg-indicator"))
                     if player.health == 0:
                         start_transition("game_over")
 
@@ -664,7 +627,7 @@ while running:
             if post_transition_stage == "game_won":
                 timer = 0
             elif post_transition_stage == "world":
-                map = map_load(next_map)
+                map,tiles = map_load(next_map,tiles,window_scale=window_scale)
                 if map[world_player.y//64][world_player.x//64].type == "enemy":#make sure not end up back on enemy tile
                     world_player.x -= 64
                     world_player.target_x -= 64
