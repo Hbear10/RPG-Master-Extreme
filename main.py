@@ -394,13 +394,14 @@ def draw_text_box(): #draw text box
     screen.blit(title, (10*window_scale,410*window_scale))
 
     img = pygame.image.load("Assets/"+text_box_info["img"]).convert()
+    img = pygame.transform.scale(img,(64,64))
     img_rect = img.get_rect()
     img_rect.center = (70,540)
     screen.blit(img,img_rect)
 
     for i in range(len(text_box_info["desc"])):
-        desc = little_font.render(text_box_info["desc"][i], False, (255, 255, 255))
-        screen.blit(desc, ((200)*window_scale,(410+i*30)*window_scale))
+        desc = font(20).render(text_box_info["desc"][i], False, (255, 255, 255))
+        screen.blit(desc, ((160)*window_scale,(410+i*30)*window_scale))
 
 
 
