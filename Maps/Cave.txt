@@ -1,0 +1,10 @@
+w-Brick,w-Brick,w-Brick,w-Brick,l-Blank-Sea_path~4~8,l-Blank-Sea_path~5~8,w-Brick,w-Brick,w-Brick,w-Brick
+w-Brick,w-Spike,w-Spike,w-Spike,p-Blank,p-Blank,w-Spike,w-Spike,w-Spike,w-Brick
+w-Brick,w-Spike,w-Spike,w-Spike,p-Blank,p-Blank,w-Spike,w-Spike,w-Spike,w-Brick
+w-Brick,w-Spike,w-Spike,w-Spike,p-Blank,p-Blank,w-Spike,w-Spike,w-Spike,w-Brick
+w-Brick,w-Spike,w-Spike,w-Spike,p-Blank,p-Blank,w-Spike,w-Spike,w-Spike,w-Brick
+w-Brick,w-Spike,w-Spike,w-Spike,e-Dragon_NW-dragon,e-Dragon_NE-dragon,w-Spike,w-Spike,w-Spike,w-Brick
+w-Brick,w-Spike,w-Spike,w-Spike,p-Dragon_SW,p-Dragon_SE,w-Spike,w-Spike,w-Spike,w-Brick
+w-Brick,w-Spike,w-Spike,w-Spike,w-Spike,w-Spike,w-Spike,w-Spike,w-Spike,w-Brick
+w-Brick,w-Spike,w-Spike,w-Spike,w-Spike,w-Spike,w-Spike,w-Spike,w-Spike,w-Brick
+w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick

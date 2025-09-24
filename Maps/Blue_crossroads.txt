@@ -2,9 +2,9 @@ w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,l-Path-Blue_North~4~8,l-Path
 w-Blue_Brick,p-Grass,r-Tall_Grass,p-Grass,p-Path,p-Path,p-Grass,p-Grass,r-Tall_Grass,w-Blue_Brick
 w-Blue_Brick,p-Blank,p-Grass,p-Grass,p-Path,p-Path,p-Blank,p-Grass,p-Grass,w-Blue_Brick
 w-Blue_Brick,p-Grass,p-Blank,p-Blank,p-Path,p-Path,p-Grass,p-Blank,p-Grass,w-Blue_Brick
-p-Path,p-Path,p-Path,p-Path,p-Path,p-Path,p-Path,p-Path,p-Path,l-Path-Blue_entrance~1~4
-p-Path,p-Path,p-Path,p-Path,p-Path,p-Path,p-Path,p-Path,p-Path,l-Path-Blue_entrance~1~5
+l-Path-Blue_exit~8~4,p-Path,p-Path,p-Path,p-Path,p-Path,p-Path,p-Path,p-Path,l-Path-Blue_entrance~1~4
+l-Path-Blue_exit~8~5,p-Path,p-Path,p-Path,p-Path,p-Path,p-Path,p-Path,p-Path,l-Path-Blue_entrance~1~5
 w-Blue_Brick,p-Grass,p-Grass,p-Blank,p-Path,p-Path,r-Tall_Grass,r-Tall_Grass,p-Grass,w-Blue_Brick
 w-Blue_Brick,r-Tall_Grass,p-Grass,p-Grass,p-Path,p-Path,p-Grass,p-Grass,p-Blank,w-Blue_Brick
 w-Blue_Brick,r-Tall_Grass,r-Tall_Grass,p-Grass,p-Path,p-Path,p-Grass,p-Blank,p-Blank,w-Blue_Brick
-w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,p-Path,p-Path,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick
+w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,l-Path-Blue_South~4~1,l-Path-Blue_South~5~1,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick

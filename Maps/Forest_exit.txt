@@ -1,0 +1,10 @@
+w-Green_Brick,w-Green_Brick,w-Green_Brick,w-Green_Brick,l-Path-Forest8~4~8,l-Path-Forest8~5~8,w-Green_Brick,w-Green_Brick,w-Green_Brick,w-Green_Brick
+w-Green_Brick,w-Tree,p-Path,p-Path,p-Path,p-Path,p-Path,w-Tree,w-Tree,w-Green_Brick
+pw-Green_Brick,w-Tree,p-Path,p-Green_path_W,p-Green_path_M,p-Green_path_M,p-Green_path_NE,p-Path,p-Path,w-Green_Brick
+w-Green_Brick,w-Tree,p-Path,p-Green_path_W,p-Green_path_M,p-Green_path_M,p-Green_path_E,p-Path,p-Path,w-Green_Brick
+w-Green_Brick,p-Path,p-Path,p-Green_path_W,p-Green_path_M,p-Green_path_M,p-Green_path_E,p-Path,p-Path,w-Green_Brick
+w-Green_Brick,p-Path,p-Path,p-Green_path_SW,p-Green_path_M,p-Green_path_M,p-Green_path_E,p-Path,p-Path,w-Green_Brick
+w-Green_Brick,p-Path,p-Path,p-Path,p-Green_path_SW,p-Green_path_S,p-Green_path_SE,p-Path,p-Path,w-Green_Brick
+w-Green_Brick,p-Path,p-Path,p-Path-Path,p-Path,p-Path,p-Path,p-Path,p-Path,w-Green_Brick
+w-Green_Brick,p-Path,p-Path,p-Path-Path,p-Path,p-Path,p-Path,p-Path,p-Path,w-Green_Brick
+w-Green_Brick,w-Green_Brick,w-Green_Brick,w-Green_Brick,l-Path-Sea_path~4~1,l-Path-Sea_path~5~1,w-Green_Brick,w-Green_Brick,w-Green_Brick,w-Green_Brick

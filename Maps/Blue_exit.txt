@@ -1,0 +1,10 @@
+w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick
+w-Blue_Brick,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,p-Grass,p-Grass,p-Path,r-Tall_Grass,r-Tall_Grass,w-Blue_Brick
+w-Blue_Brick,r-Tall_Grass,p-Grass,p-Path,p-Path,p-Path,p-Path,p-Path,p-Path,w-Blue_Brick
+w-Blue_Brick,p-Grass,p-Blue_Path_NW,p-Blue_Path_N,p-Blue_Path_N,p-Blue_Path_N,p-Blue_Path_N,p-Blue_Path_NE,p-Path,w-Blue_Brick
+l-Path-Forest_entrance~8~4,p-Path,p-Blue_Path_W,p-Blue_Path_M,p-Blue_Path_M,p-Blue_Path_M,p-Blue_Path_M,p-Blue_Path_E,p-Path,l-Path-Blue_crossroads~8~4
+l-Grass-Forest_entrance~8~5,p-Path,p-Blue_Path_W,p-Blue_Path_M,p-Blue_Path_M,p-Blue_Path_M,p-Blue_Path_M,p-Blue_Path_E,p-Path,l-Path-Blue_crossroads~8~5
+w-Blue_Brick,p-Path,p-Blue_Path_SW,p-Blue_Path_S,p-Blue_Path_S,p-Blue_Path_S,p-Blue_Path_S,p-Blue_Path_SE,p-Grass,w-Blue_Brick
+w-Blue_Brick,p-Grass,p-Path,p-Path,p-Path,p-Path,p-Path,p-Path,p-Grass,w-Blue_Brick
+w-Blue_Brick,r-Tall_Grass,p-Grass,p-Grass,p-Path,p-Path,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,w-Blue_Brick
+w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick

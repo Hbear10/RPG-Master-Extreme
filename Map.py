@@ -29,7 +29,10 @@ def map_load(maptext:str, tiles,window_scale=1):
             elif block_info[0] == "l":
                 block = tile(block_info[1],"leave",tuple(block_info[2].split("~")))
             elif block_info[0] == "e":
-                block = tile(block_info[1],"enemy")
+                if len(block_info) == 2:
+                    block = tile(block_info[1],"enemy")
+                else:
+                    block = tile(block_info[1],"enemy",extra_info=tuple([block_info[2]]))
             elif block_info[0] == "r":
                 block = tile(block_info[1],"random")
             elif block_info[0] == "h":

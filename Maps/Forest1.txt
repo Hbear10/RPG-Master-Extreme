@@ -1,0 +1,10 @@
+w-Green_Brick,w-Green_Brick,w-Green_Brick,w-Green_Brick,w-Green_Brick,w-Green_Brick,w-Green_Brick,w-Green_Brick,w-Green_Brick,w-Green_Brick
+w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree
+l-Path-Forest2~8~2,p-Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,w-Tree,w-Tree,w-Tree
+l-Path-Forest2~8~3,p-Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,w-Tree
+p-Tree,p-Tree,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,p-Path,l-Path-Forest_entrance~1~4
+p-Tree,p-Tree,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,p-Path,l-Path-Forest_entrance~1~5
+w-Tree,w-Tree,w-Tree,w-Tree,r-Tall_Grass,r-Tall_Grass,w-Tree,w-Tree,w-Tree,w-Tree
+w-Tree,h-Player,h-Player,w-Tree,r-Tall_Grass,r-Tall_Grass,w-Tree,h-Player,h-Player,w-Tree
+w-Tree,h-Player,h-Player,w-Tree,p-Path,p-Path,w-Tree,h-Player,h-Player,w-Tree
+w-Tree,w-Tree,w-Tree,w-Tree,l-Path-Forest4~4~1,l-Grass-Forest4~5~1,w-Tree,w-Tree,w-Tree,w-Tree

@@ -1,0 +1,10 @@
+w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Green_Brick
+w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Green_Brick
+w-Tree,w-Tree,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,w-Tree,w-Green_Brick
+w-Tree,w-Tree,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,w-Tree,w-Green_Brick
+w-Tree,w-Tree,r-Tall_Grass,r-Tall_Grass,w-Tree,w-Tree,r-Tall_Grass,r-Tall_Grass,w-Tree,w-Green_Brick
+w-Tree,w-Tree,r-Tall_Grass,r-Tall_Grass,w-Tree,w-Tree,r-Tall_Grass,r-Tall_Grass,w-Tree,w-Green_Brick
+l-Grass-Forest4~8~6,p-Path,p-Path,r-Tall_Grass,w-Tree,w-Tree,r-Tall_Grass,r-Tall_Grass,w-Tree,w-Green_Brick
+l-Grass-Forest4~8~7,p-Path,p-Path,p-Path,w-Tree,w-Tree,p-Path,r-Tall_Grass,w-Tree,w-Green_Brick
+w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,p-Path,p-Path,w-Tree,w-Green_Brick
+w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,l-Grass-Forest6~6~1,l-Grass-Forest6~7~1,w-Tree,w-Green_Brick

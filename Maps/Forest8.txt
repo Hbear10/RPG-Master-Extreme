@@ -1,0 +1,10 @@
+w-Green_Brick,w-Tree,w-Tree,w-Tree,l-Path-Forest5~4~8,l-Path-Forest5~5~8,w-Tree,w-Tree,w-Tree,w-Tree
+w-Green_Brick,w-Tree,w-Tree,p-Path,p-Path,p-Path,p-Path,w-Tree,w-Tree,w-Tree
+w-Green_Brick,w-Tree,w-Tree,p-Path,p-Green_path_NW,p-Green_path_NE,p-Path,w-Tree,w-Tree,w-Tree
+w-Green_Brick,w-Tree,w-Tree,p-Path,p-Green_path_W,p-Green_path_E,p-Path,w-Tree,w-Tree,w-Tree
+w-Green_Brick,w-Tree,w-Tree,p-Path,p-Green_path_W,p-Green_path_E,p-Path,w-Tree,w-Tree,w-Tree
+w-Green_Brick,w-Tree,w-Tree,p-Path,p-Green_path_W,p-Green_path_E,p-Path,p-path,p-path,l-path-Forest7~1~5
+w-Green_Brick,w-Tree,w-Tree,p-Path,p-Green_path_W,p-Green_path_E,p-Path,p-path,p-path,l-path-Forest7~1~6
+w-Green_Brick,w-Tree,w-Tree,p-Path,p-Green_path_W,p-Green_path_SE,p-Path,p-path,p-path,l-path-Forest7~1~7
+w-Green_Brick,w-Tree,w-Tree,w-Sign,p-Path,p-Path,h-Heal,w-Tree,w-Tree,w-Tree
+w-Green_Brick,w-Green_Brick,w-Green_Brick,w-Green_Brick,l-Path-Forest_exit~4~1,l-Path-Forest_exit~5~1,w-Green_Brick,w-Green_Brick,w-Tree,w-Tree

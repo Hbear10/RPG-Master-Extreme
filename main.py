@@ -9,7 +9,7 @@ print("hello world")
 
 
 class being(): #for battles e.g. player or enemy and contains their stats
-    def __init__(self,name: str,max_health: int,strength: int,defence: int,lvl=int,exp=None):#set up object
+    def __init__(self, name: str, max_health: int, strength: int, defence: int, lvl=int, exp=None):#set up object
         self.name = name
         self.max_health = max_health
         self.health = max_health
@@ -78,7 +78,7 @@ map = []
 
 
 
-
+#load all items that I have in my text file that decides what items i have this is an interesting thing to talk about
 def item_load(file):
     items = {}
     file = open(file)
@@ -103,6 +103,8 @@ def load_enemy(set):#random enemy
         types = ["Slime","Mushroom"]
         lvl = random.randint(2,4)
         return being(random.choice(types),random.randint(lvl*3,lvl*4),random.randint(lvl+1,lvl+4),random.randint(lvl+1,lvl+4),lvl)
+    elif set == "dragon":
+        return being("Dragon",100,25,25,50)
 
 
 world_player = world_being(64,64) # create player in world
@@ -273,6 +275,7 @@ def battle_scene():#draw battle
     if player_turn == True or timer >= 30 or enemy.choice == "defend":#not moving
         #enemy sprite
         enemy_sprite = pygame.image.load("Assets/"+enemy.name+".png").convert()
+        enemy_sprite = pygame.transform.scale(enemy_sprite,(128,128))
         enemy_rect = enemy_sprite.get_rect()
         enemy_rect.center = (320,240)
         screen.blit(enemy_sprite,enemy_rect)
@@ -287,6 +290,7 @@ def battle_scene():#draw battle
         else:#falling down
             #enemy sprite
             enemy_sprite = pygame.image.load("Assets/"+enemy.name+".png").convert()
+            enemy_sprite = pygame.transform.scale(enemy_sprite,(128,128))
             enemy_rect = enemy_sprite.get_rect()
             enemy_rect.center = (320,240-timer*2)
             screen.blit(enemy_sprite,enemy_rect)
@@ -629,9 +633,9 @@ while running:
                 timer = 0
             elif post_transition_stage == "world":
                 map,tiles = map_load(next_map,tiles,window_scale=window_scale)
-                if map[world_player.y//64][world_player.x//64].type == "enemy":#make sure not end up back on enemy tile
-                    world_player.x -= 64
-                    world_player.target_x -= 64
+                # if map[world_player.y//64][world_player.x//64].type == "enemy":#make sure not end up back on enemy tile
+                #     world_player.x -= 64
+                #     world_player.target_x -= 64
             elif post_transition_stage == "battle":
                 battle_selector = 1
         else:
@@ -729,7 +733,11 @@ while running:
                     next_map = info[0]
                     start_transition("world")
                 elif map[world_player.y//64][world_player.x//64].type == "enemy":
-                    enemy = load_enemy("start")
+                    if map[world_player.y//64][world_player.x//64].extra_info == ():
+                        enemy = load_enemy("start")
+                    else:
+                        print(map[world_player.y//64][world_player.x//64].extra_info[0])
+                        enemy = load_enemy(map[world_player.y//64][world_player.x//64].extra_info[0])
                     start_transition("battle")
                 elif map[world_player.y//64][world_player.x//64].type == "heal":
                     #print(1)

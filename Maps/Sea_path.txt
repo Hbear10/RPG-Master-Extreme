@@ -1,0 +1,10 @@
+w-Sea,w-Sea,w-Brick,w-Brick,l-Path-Forest_exit~4~8,l-Grass-Forest_exit~5~8,w-Brick,w-Brick,w-Spike,w-Spike
+w-Sea,w-Sea,p-Sand,p-Sand,p-Path,p-Path,p-Sand,w-Spike,w-Spike,w-Spike
+w-Sea,w-Sea,w-Sea,p-Sand,p-Sand,p-Sand,p-Sand,w-Spike,w-Spike,w-Spike
+w-Sea,w-Sea,w-Sea,p-Sand,p-Sand,p-Sand,p-Sand,w-Spike,w-Spike,w-Spike
+w-Sea,w-Sea,p-Sand,p-Sand,p-Sand,p-Sand,p-Sand,w-Spike,w-Spike,w-Spike
+w-Sea,w-Sea,w-Sea,p-Sand,p-Sand,p-Sand,p-Sand,w-Spike,w-Spike,w-Spike
+w-Sea,w-Sea,w-Sea,p-Sand,p-Sand,p-Sand,p-Sand,w-Spike,w-Spike,w-Spike
+w-Sea,w-Sea,w-Sea,p-Sand,p-Sand,p-Sand,p-Sand,w-Spike,w-Spike,w-Spike
+w-Sea,w-Sea,p-Sand,p-Sand,p-Sand,p-Sand,p-Sand,w-Spike,w-Spike,w-Spike
+w-Green_Brick,w-Green_Brick,w-Green_Brick,w-Green_Brick,l-Path-Cave~4~1,l-Path-Cave~4~1,w-Green_Brick,w-Green_Brick,w-Green_Brick,w-Green_Brick

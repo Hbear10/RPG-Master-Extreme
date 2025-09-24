@@ -1,0 +1,10 @@
+w-Green_Brick,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree
+w-Green_Brick,w-Tree,w-Slime,w-Mushroom,p-Grass,p-Path,e-Slime,p-Path,p-Grass,l-Path-Forest4~1~1
+w-Green_Brick,w-Tree,e-Mushroom,w-Slime,w-Slime,p-Blank,p-Blank,p-Path,e-Mushroom,l-Path-Forest4~1~2
+w-Green_Brick,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree
+w-Green_Brick,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree,w-Tree
+w-Green_Brick,w-Tree,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,w-Tree
+w-Green_Brick,w-Tree,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,w-Tree
+w-Green_Brick,w-Tree,r-Tall_Grass,r-Tall_Grass,p-Grass,p-Path,p-Path,p-Grass,p-Path,l-Path-Forest4~1~7
+w-Green_Brick,w-Tree,r-Tall_Grass,r-Tall_Grass,p-Grass,p-Grass,p-Grass,p-Path,p-Grass,l-Path-Forest4~1~8
+w-Green_Brick,w-Tree,w-Tree,w-Tree,l-Path-Forest8~4~1,l-Path-Forest8~5~1,w-Tree,w-Tree,w-Tree,w-Tree
