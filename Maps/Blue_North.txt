@@ -1,0 +1,10 @@
+w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick
+w-Blue_Brick,p-Blank,p-Blank,p-Blank,p-Blank,p-Blank,p-Blank,p-Blank,p-Blank,w-Blue_Brick
+w-Blue_Brick,p-Blank,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,p-Blank,w-Blue_Brick
+w-Blue_Brick,p-Blank,w-Blue_Brick,w-Blue_Roof,w-Blue_Roof,w-Blue_Roof,w-Blue_Roof,w-Blue_Brick,p-Blank,w-Blue_Brick
+w-Blue_Brick,p-Blank,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,p-Blank,w-Blue_Brick
+w-Blue_Brick,p-Blank,w-Blue_Roof,w-Blue_Roof,w-Blue_Door,w-Blue_Door,w-Blue_Roof,w-Blue_Roof,p-Blank,w-Blue_Brick
+w-Blue_Brick,p-Blank,p-Blank,p-Blank,p-Blue_Path_NW,p-Blue_Path_NE,p-Blank,p-Blank,p-Blank,w-Blue_Brick
+w-Blue_Brick,p-Blank,p-Blank,p-Blank,p-Blue_Path_W,p-Blue_Path_E,p-Blank,p-Blank,p-Blank,w-Blue_Brick
+w-Blue_Brick,p-Blank,p-Blank,p-Blank,p-Blue_Path_W,p-Blue_Path_E,p-Blank,p-Blank,p-Blank,w-Blue_Brick
+w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,l-Blue_Path_W-Blue_crossroads~4~1,l-Blue_Path_E-Blue_crossroads~5~1,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick,w-Blue_Brick

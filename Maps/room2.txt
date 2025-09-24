@@ -2,9 +2,9 @@ w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick
 w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Brick
 w-Brick,p-Grass,p-Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,p-Grass,p-Grass,w-Brick
 w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Brick
-l-Path-Blue_entrance~8~5,p-Grass,h-Heal,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,l-Grass-start~1~5
+l-Path-Blue_entrance~8~5,p-Grass,h-Heal,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Brick
 l-Path-Blue_entrance~8~6,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,l-Grass-start~1~6
-w-Brick,p-Grass,p-Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,p-Grass,p-Grass,w-Brick
+w-Brick,p-Grass,p-Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,p-Grass,p-Grass,l-Grass-start~1~7
 w-Brick,p-Grass,p-Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,r-Tall_Grass,p-Grass,p-Grass,w-Brick
 w-Brick,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,p-Grass,w-Brick
 w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick,w-Brick

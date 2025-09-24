@@ -12,26 +12,27 @@ def map_load(maptext:str, tiles,window_scale=1):
     map = []
     file = open("Maps/"+maptext+".txt", "r")
     map_bad = file.read().split('\n')
-    for i in map_bad:
+    for n in range(10):
+        i = map_bad[n]
         i = i.split(",")
         map.append([])
         for x in i:
             block_info = x.split("-")
             if block_info[0] == "p":
                 block = tile(block_info[1],"path")
-            elif x[0] == "w":
+            elif block_info[0] == "w":
                 if len(block_info)>=3:
                     block = tile(block_info[1],"wall",list(block_info[2].split("~")))
                     block.extra_info[-2] = block.extra_info[-2].split(".")
                 else:
                     block = tile(block_info[1],"wall")
-            elif x[0] == "l":
+            elif block_info[0] == "l":
                 block = tile(block_info[1],"leave",tuple(block_info[2].split("~")))
-            elif x[0] == "e":
+            elif block_info[0] == "e":
                 block = tile(block_info[1],"enemy")
-            elif x[0] == "r":
+            elif block_info[0] == "r":
                 block = tile(block_info[1],"random")
-            elif x[0] == "h":
+            elif block_info[0] == "h":
                 block = tile(block_info[1],"heal")
             map[-1].append(block)
             if block_info[1] not in tiles:
