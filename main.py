@@ -137,7 +137,7 @@ screen.fill((255,255,255))
 pygame.font.init() 
 
 def font(n:int): #returns a font of n size
-    return pygame.font.SysFont('Comic Sans MS', n*window_scale)
+    return pygame.font.Font('Comic Sans MS.ttf', n*window_scale)
 
 
 big_font = font(50)
@@ -148,11 +148,11 @@ timer = 64
 
 text_box_info = {"title":"","desc":[""],"img":"Random.png"}
 #creates animation for the player's attack slash
-slash_sheet = Spritesheet.SpriteSheet("Assets\Slash.png")
+slash_sheet = Spritesheet.SpriteSheet("Assets/Slash.png")
 slash = [slash_sheet.image_at((0,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((16,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((32,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((48,0,16,16),colorkey=(0,0,0)),\
         slash_sheet.image_at((64,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((80,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((96,0,16,16),colorkey=(0,0,0)),slash_sheet.image_at((112,0,16,16),colorkey=(0,0,0))]
 
-projectile_sheet = Spritesheet.SpriteSheet("Assets\Projectile.png")
+projectile_sheet = Spritesheet.SpriteSheet("Assets/Projectile.png")
 projectile = [projectile_sheet.image_at((0,0,16,16),colorkey=(0,0,0)),projectile_sheet.image_at((16,0,16,16),colorkey=(0,0,0)),projectile_sheet.image_at((32,0,16,16),colorkey=(0,0,0)),projectile_sheet.image_at((48,0,16,16),colorkey=(0,0,0)),\
         projectile_sheet.image_at((64,0,16,16),colorkey=(0,0,0)),projectile_sheet.image_at((80,0,16,16),colorkey=(0,0,0)),projectile_sheet.image_at((96,0,16,16),colorkey=(0,0,0)),projectile_sheet.image_at((112,0,16,16),colorkey=(0,0,0))]
 
@@ -422,10 +422,11 @@ def draw_world():#draw map
             screen.blit(tiles[map[y][x].img],square_rect)
 
     # player = pygame.Rect(world_player.x,world_player.y,64,64)
-    # pygame.draw.rect(screen,("YELLOW"),player)
+    # pygame.draw.rect(screen,("YELLOW"),player)c
+
 
     #player
-    player_png = ["Player_Down.png","Player_Right.png","Player_Up.png","Player_Left.png"][player_direction//90]
+    player_png = ["Player_down.png","Player_right.png","Player_up.png","Player_left.png"][player_direction//90]
     player_img = pygame.transform.scale(pygame.image.load("Assets/"+player_png).convert(),(64,64))#getimage and convert to 64x64 and 
     player_img.set_colorkey((255,0,0))#remove all red as i used that as that as beckground when making the pixel art
     player_rect = player_img.get_rect()
@@ -780,11 +781,11 @@ while running:
         #print(i.coords)
 
         if i.type == "dmg-indicator":
-            words = pygame.font.SysFont('Comic Sans MS', i.duration).render(i.text, False, (255, 255, 255))
+            words = pygame.font.Font('Comic Sans MS.ttf', i.duration).render(i.text, False, (255, 255, 255))
         elif i.type == "defending":
-            words = pygame.font.SysFont('Comic Sans MS', 50).render(i.text, False, (255, 255, 255))
+            words = pygame.font.Font('Comic Sans MS.ttf', 50).render(i.text, False, (255, 255, 255))
         else:
-            words = pygame.font.SysFont('Comic Sans MS', 60).render("Error", False, (255, 255, 255))
+            words = pygame.font.Font('Comic Sans MS.ttf', 60).render("Error", False, (255, 255, 255))
 
         screen.blit(words, i.coords)
         i.duration -= 1
